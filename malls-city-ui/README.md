@@ -28,6 +28,9 @@ To install bootstarp
 ## ng g module core --routing 
 To create module named "core" with its routing file.
 
+## Install Angular Material
+ng add @angular/material@16.2.12
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
