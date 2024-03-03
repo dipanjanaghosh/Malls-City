@@ -31,6 +31,9 @@ To create module named "core" with its routing file.
 ## Install Angular Material
 ng add @angular/material@16.2.12
 
+## npm install ts-node --save-dev 
+Installs the ts-node package: ts-node is a Node.js package that allows you to execute TypeScript code directly without prior compilation to JavaScript.This simplifies development and testing, enabling you to work with TypeScript files directly and see results immediately.
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
