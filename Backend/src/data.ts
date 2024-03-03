@@ -1,0 +1,32 @@
+export const store:any[] = [
+    {
+        id:1,
+        name:"Kolkata",
+        key:"kol"
+    },
+    {
+        id:2,
+        name:"Durgapur",
+        key:"dgp"
+    },
+    {
+        id:3,
+        name:"Pune",
+        key:"pun"
+    },
+    {
+        id:4,
+        name:"Delhi",
+        key:"del"
+    },
+    {
+        id:5,
+        name:"Bangalore",
+        key:"bgl"
+    },
+    {
+        id:6,
+        name:"Chennai",
+        key:"chn"
+    },
+]
