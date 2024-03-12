@@ -1,0 +1,35 @@
+
+.bg {
+  /* The image used */
+  background-image: url('../../../images/m3.jpg');
+  /* Half height */
+  height: 90%;
+  /* Center and scale the image nicely */
+  border-radius: 0 0 0 20rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Additional styles for form field and select */
+mat-form-field {
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+mat-select {
+  width: 100%;
+}
+// ::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled) {
+//   background-color: rgba(137, 43, 226, 0.821) !important;
+// }
+
+// ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outine__leading,
+// ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outine__notch,
+// ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outine__trailing{
+//   border-color: white;
+//   border-width: 3px;
+// }
