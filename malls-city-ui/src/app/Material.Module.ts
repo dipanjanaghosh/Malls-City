@@ -12,12 +12,18 @@ import {MatSidenavModule} from "@angular/material/sidenav"
 import {MatMenuModule} from "@angular/material/menu"
 import {MatListModule} from "@angular/material/list"
 import {MatIconModule} from "@angular/material/icon"
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
     exports:[
         MatButtonModule,
         MatToolbarModule,
-        MatIconModule
+        MatIconModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
     ]
 })
 export class MaterialModule{}

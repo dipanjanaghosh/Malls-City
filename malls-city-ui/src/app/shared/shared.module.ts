@@ -6,9 +6,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from '../Material.Module';
 import { SearchCityComponent } from './components/search-city/search-city.component';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 @NgModule({
   declarations: [
@@ -20,9 +18,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     CommonModule,
     SharedRoutingModule,
     MaterialModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
     FormsModule
   ],
   exports: [
