@@ -7,9 +7,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from '../Material.Module';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchCityComponent } from './components/search-city/search-city.component';
+import { AddCityComponent } from '../admin/components/add-city/add-city.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, SearchCityComponent],
+  declarations: [HeaderComponent, FooterComponent, SearchCityComponent,AddCityComponent],
   imports: [CommonModule, SharedRoutingModule, MaterialModule, FormsModule,HttpClientModule],
   exports: [HeaderComponent],
 })

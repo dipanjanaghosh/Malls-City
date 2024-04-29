@@ -1,13 +1,25 @@
 <mat-toolbar>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>{{ headerTitle }}</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button color="white" aria-label="Example icon button with a home icon">
-      <mat-icon>home</mat-icon>
-    </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>{{ headerTitle }}</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button color="white" aria-label="Example icon button with a home icon">
+    <mat-icon>home</mat-icon>
+  </button>
+  <button mat-icon-button color="white" class="example-icon account_circle-icon" (click)="openModal()"
+    aria-label="Example icon-button with account_circle icon">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+  <div id="accountModal" class="modal">
+    <div class="modal-content">
+      <app-add-city *ngIf="showAddCity"></app-add-city>
+      <button class="closemodal" mat-button (click)="closeModal()">&#10006;</button>
+
+    </div>
+  </div>
 </mat-toolbar>

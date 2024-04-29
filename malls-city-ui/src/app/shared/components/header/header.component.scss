@@ -5,3 +5,16 @@ mat-toolbar {
     flex: 1 1 auto;
   }
 }
+.modal-content{
+  background-color: transparent;
+  top: 60px;
+  padding: 20px;
+
+  .closemodal{
+    background: mediumslateblue;
+    width: auto;
+    border-radius: 20px;
+    position: absolute;
+    right: 50px;
+  }
+}
