@@ -13,8 +13,7 @@ export class AddCityComponent implements OnInit {
     this.fetchCityList();
   }
   fetchCityList() {
-    const apiUrl = 'http://localhost:5000/api/cities';
-    this.searchCityService.getAllCityList(apiUrl).subscribe((data: any) => {
+    this.searchCityService.getAllCityList().subscribe((data: any) => {
       this.cityList = data;
 
       console.log(this.cityList);

@@ -1,8 +1,10 @@
 <div class="bg">
   <mat-form-field>
     <mat-label>Select your city</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let city of cityList" [value]="city.name">{{ city.name }}</mat-option>
+    <mat-select [(ngModel)]="selectedCity">
+      <mat-option *ngFor="let city of cityList"
+          [value]="city.name"
+          (click)="onCitySelected(selectedCity)">{{ city.name }}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>

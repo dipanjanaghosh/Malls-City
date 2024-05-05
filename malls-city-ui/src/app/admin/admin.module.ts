@@ -14,11 +14,11 @@ import { MatInputModule } from '@angular/material/input';
   declarations: [
     StoresComponent,
     MallsComponent,
-    //AddCityComponent
+    AddCityComponent
   ],
   imports: [
     CommonModule, MaterialModule, FormsModule,HttpClientModule,MatSelectModule,MatFormFieldModule,MatInputModule
   ],
-  //exports: [AddCityComponent]
+  exports: [AddCityComponent]
 })
 export class AdminModule { }
