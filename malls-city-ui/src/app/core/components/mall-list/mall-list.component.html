@@ -1,4 +1,10 @@
 <h2>Mall List for {{ selectedCity }}</h2>
 <ul>
-  <!-- <li *ngFor="let name of mallNames">{{name}}</li> -->
+  <li *ngFor="let name of mallNames">{{name}}</li>
+</ul>
+<hr>
+<ul>
+  <li *ngFor="let item of mallList">
+    Mall Name : {{item.name}}
+  </li>
 </ul>

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { paramData } from './models/mall.model';
+import { paramData } from '../../models/searchTerm.model';
 import { GetMallListService } from '../../service/getmall-list.service';
+import { mallsItem } from '../../models/malls.model';
 
 @Component({
   selector: 'mall-list',
@@ -9,9 +10,9 @@ import { GetMallListService } from '../../service/getmall-list.service';
 })
 export class MallListComponent {
   selectedCity = '';
-  mallList: any;
-  mallsDetails:any;
-  mallNames = [];
+  mallList: mallsItem[] = [];
+  mallsDetails!: mallsItem ;
+  mallNames :string[] = [];
   mallCity = '';
   mallDescription = '';
   noOfFloors: any;
@@ -41,15 +42,15 @@ export class MallListComponent {
     this.mallList = this.getMallListService.getMallListForSelectedCity();
     console.log('The mall list :', this.mallList);
 
-    // for (let mall of this.mallList) {
-    //   console.log(mall.name);
-    //   this.mallNames.push(mall["name"]);
-    // }
+    for (let mall of this.mallList) {
+      this.mallNames.push(mall.name);
+    }
+    console.log("mallNames",this.mallNames);
 
-    // for (let i = 0; i < this.mallList.length; i++) {
-    //   this.mallsDetails = this.mallList[i];
-    //   this.mallNames.push(this.mallsDetails.name);
-    //   console.log(this.mallNames);
-    // }
+    for (let i = 0; i < this.mallList.length; i++) {
+      this.mallsDetails = this.mallList[i];
+      this.mallNames.push(this.mallsDetails.name);
+    }
+    console.log("mallsDetails :",this.mallsDetails);
   }
 }
