@@ -6,11 +6,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from '../Material.Module';
 import { HttpClientModule } from '@angular/common/http';
-import { SearchCityComponent } from './components/search-city/search-city.component';
+import { HomeComponent } from './components/home/home.component';
 import { AdminModule } from '../admin/admin.module';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, SearchCityComponent],
+  declarations: [HeaderComponent, FooterComponent, HomeComponent],
   imports: [CommonModule, SharedRoutingModule, MaterialModule, FormsModule,HttpClientModule,AdminModule],
   exports: [HeaderComponent],
 })
