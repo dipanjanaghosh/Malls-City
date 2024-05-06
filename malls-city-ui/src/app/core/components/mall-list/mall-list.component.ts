@@ -6,6 +6,7 @@ import { GetMallListService } from '../../service/getmall-list.service';
 @Component({
   selector: 'mall-list',
   templateUrl: './mall-list.component.html',
+  styleUrls:[],
 })
 export class MallListComponent {
   selectedCity = '';

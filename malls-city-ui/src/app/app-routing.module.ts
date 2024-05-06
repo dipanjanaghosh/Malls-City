@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddCityComponent } from './admin/components/add-city/add-city.component';
-import { MallListComponent } from './core/components/mall-list/mall-list.component';
-
 
 const routes: Routes = [
-  {path:'addcity',component:AddCityComponent},
-  {path:'mallslist', component:MallListComponent}
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: 'core', loadChildren: () => import('./core/core.module').then(m => m.CoreModule) },
 ];
 
 @NgModule({

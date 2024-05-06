@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-city',
-  templateUrl: './search-city.component.html',
-  styleUrls: ['./search-city.component.scss'],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
-export class SearchCityComponent implements OnInit {
+export class HomeComponent implements OnInit {
   cityList: any;
   selectedCity: any;
 
@@ -24,7 +24,7 @@ export class SearchCityComponent implements OnInit {
   }
 
   onCitySelected(cityName:string) {
-    this.router.navigate(['/mallslist'],
+    this.router.navigate(['/core/mallslist'],
     { queryParams: { city: cityName } });
   }
 }

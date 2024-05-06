@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { MallListComponent } from './components/mall-list/mall-list.component';
+import { ShopListComponent } from './components/shop-list/shop-list.component';
 
 
 @NgModule({
-  declarations: [MallListComponent],
+  declarations: [MallListComponent,ShopListComponent],
   imports: [
     CommonModule,
     CoreRoutingModule
