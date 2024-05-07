@@ -25,6 +25,6 @@ export class HomeComponent implements OnInit {
 
   onCitySelected(cityName:string) {
     this.router.navigate(['/core/mallslist'],
-    { queryParams: { city: cityName } });
+    { queryParams: { city: cityName } ,skipLocationChange: true });
   }
 }
