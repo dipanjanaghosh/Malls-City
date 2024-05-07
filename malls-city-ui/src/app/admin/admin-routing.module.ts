@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddCityComponent } from '../admin/components/add-city/add-city.component';
 
 const routes: Routes = [
-  
+  {path:'addcity',component:AddCityComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AuthRoutingModule { }
+export class AdminRoutingModule { }
