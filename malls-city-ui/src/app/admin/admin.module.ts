@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { AdminRoutingModule } from './admin-routing.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,14 @@ import { MatInputModule } from '@angular/material/input';
     AddCityComponent
   ],
   imports: [
-    CommonModule, MaterialModule, FormsModule,HttpClientModule,MatSelectModule,MatFormFieldModule,MatInputModule
+    CommonModule,
+    MaterialModule,
+    FormsModule,
+    HttpClientModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    AdminRoutingModule
   ],
   exports: [AddCityComponent]
 })
