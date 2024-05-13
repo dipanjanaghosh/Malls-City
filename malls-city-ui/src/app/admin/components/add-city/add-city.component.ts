@@ -1,22 +1,11 @@
-import { Component,OnInit } from '@angular/core';
-import { SearchCityService } from 'src/app/shared/services/search-city.service';
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-add-city',
   templateUrl: './add-city.component.html',
-  styleUrls: ['./add-city.component.scss']
+  styleUrls: ['./add-city.component.scss'],
 })
-export class AddCityComponent implements OnInit {
-  cityList: any;
-  constructor(private searchCityService: SearchCityService) {}
+export class AddCityComponent {
+  constructor() {}
 
-  ngOnInit() {
-    this.fetchCityList();
-  }
-  fetchCityList() {
-    this.searchCityService.getAllCityList().subscribe((data: any) => {
-      this.cityList = data;
 
-      console.log(this.cityList);
-    });
-  }
 }

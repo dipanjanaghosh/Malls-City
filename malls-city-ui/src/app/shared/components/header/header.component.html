@@ -10,16 +10,8 @@
   <button mat-icon-button color="white" aria-label="Example icon button with a home icon" routerLink="/">
     <mat-icon>home</mat-icon>
   </button>
-  <button mat-icon-button color="white" class="example-icon account_circle-icon" (click)="openModal()"
+  <button mat-icon-button color="white" class="example-icon account_circle-icon" routerLink="/adminhome"
     aria-label="Example icon-button with account_circle icon">
     <mat-icon>account_circle</mat-icon>
   </button>
-
-  <div id="accountModal" class="modal">
-    <div class="modal-content">
-      <app-add-city *ngIf="showAddCity"></app-add-city>
-      <button class="closemodal" mat-button (click)="closeModal()">&#10006;</button>
-
-    </div>
-  </div>
 </mat-toolbar>

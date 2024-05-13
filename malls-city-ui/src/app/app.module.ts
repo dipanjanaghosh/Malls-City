@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './Material.Module';
 import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core/core.module';
-import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [

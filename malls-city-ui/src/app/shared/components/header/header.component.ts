@@ -9,19 +9,19 @@ import { SharedModule } from '../../shared.module';
 })
 export class HeaderComponent {
   headerTitle: string = 'Malls@City';
-  showAddCity = false;
+  //showAddCity = false;
 
   constructor() {}
 
-  openModal() {
-    const modal = document.getElementById('accountModal')!;
-    modal.style.display = 'block'; // Make the modal visible
-    this.showAddCity = true;
-  }
+  // openModal() {
+  //   const modal = document.getElementById('accountModal')!;
+  //   modal.style.display = 'block'; // Make the modal visible
+  //   this.showAddCity = true;
+  // }
 
-  closeModal() {
-    const modal = document.getElementById('accountModal')!;
-    modal.style.display = 'none'; // Hide the modal
-    this.showAddCity = false;
-  }
+  // closeModal() {
+  //   const modal = document.getElementById('accountModal')!;
+  //   modal.style.display = 'none'; // Hide the modal
+  //   this.showAddCity = false;
+  // }
 }
