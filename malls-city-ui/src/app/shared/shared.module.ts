@@ -7,11 +7,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from '../Material.Module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
-import { AdminModule } from '../admin/admin.module';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, HomeComponent],
-  imports: [CommonModule, SharedRoutingModule, MaterialModule, FormsModule,HttpClientModule,AdminModule],
+  imports: [CommonModule, SharedRoutingModule, MaterialModule, FormsModule,HttpClientModule],
   exports: [HeaderComponent],
 })
 export class SharedModule {}

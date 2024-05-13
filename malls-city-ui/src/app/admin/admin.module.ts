@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { AdminRoutingModule } from './admin-routing.module';
-import { AdminHomeComponent } from './components/admin-home/admin-home/admin-home.component';
+import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
