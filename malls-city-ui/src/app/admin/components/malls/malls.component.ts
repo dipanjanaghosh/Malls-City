@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchCityService } from 'src/app/shared/services/search-city.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-malls',
@@ -8,16 +9,33 @@ import { SearchCityService } from 'src/app/shared/services/search-city.service';
 })
 export class MallsComponent  implements OnInit {
   cityList: any;
+  mallData: any;
+  myForm!: FormGroup;
   constructor(private searchCityService: SearchCityService) {}
 
   ngOnInit() {
     this.fetchCityList();
+    this.myForm = new FormGroup({
+      selectedState: new FormControl(''),
+      selectedCity: new FormControl(''),
+      mallName: new FormControl(''),
+      floorNumber: new FormControl(''),
+      address: new FormControl(''),
+      description: new FormControl('')
+    });
   }
   fetchCityList() {
     this.searchCityService.getAllCityList().subscribe((data: any) => {
       this.cityList = data;
-
       console.log(this.cityList);
     });
+  }
+  onSubmit(form: FormGroup) {
+    console.log('State:',form.value.selectedState);
+    console.log('City:',form.value.selectedCity);
+    console.log('MallName:', form.value.mallName);
+    console.log('Total Floor Number:', form.value.floorNumber);
+    console.log('Address:', form.value.address);
+    console.log('Description:', form.value.description);
   }
 }

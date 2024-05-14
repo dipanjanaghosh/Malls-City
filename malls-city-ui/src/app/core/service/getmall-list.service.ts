@@ -16,7 +16,7 @@ export class GetMallListService {
         description: 'Mall is largest in Pune and famous for kids',
         noOfFloors: 4,
         address: 'Pune xyz street,74001',
-        img: '/home/img/imgMall1.jpg',
+        img: '../../../../assets/images/m1.jpg',
       },
       {
         id: 'shj4658cc6cc45cx',
@@ -26,7 +26,7 @@ export class GetMallListService {
         description: 'Mall is largest in kolkata and famous for kids',
         noOfFloors: 4,
         address: 'Kolkata xyz street,74001',
-        img: '/home/img/imgMall1.jpg',
+        img: '../../../../assets/images/m2.jpg',
       },
       {
         id: 'shj4658cc6cc45cx',
@@ -36,7 +36,7 @@ export class GetMallListService {
         description: 'Mall is largest in Pune and famous for kids',
         noOfFloors: 4,
         address: 'Pune xyz street,74001',
-        img: '/home/img/imgMall1.jpg',
+        img: '../../../../assets/images/m3.jpg',
       },
       {
         id: 'shj4658cc6cc45cx',
@@ -46,7 +46,7 @@ export class GetMallListService {
         description: 'Mall is largest in Kolkata and famous for kids',
         noOfFloors: 4,
         address: 'Kolkata xyz street,74001',
-        img: '/home/img/imgMall1.jpg',
+        img: '../../../../assets/images/m3.jpg',
       },
       {
         id: 'shj4658cc6cc45cx',
@@ -56,7 +56,7 @@ export class GetMallListService {
         description: 'Mall is largest in Pune and famous for kids',
         noOfFloors: 4,
         address: 'Pune xyz street,74001',
-        img: '/home/img/imgMall1.jpg',
+        img: '../../../../assets/images/m1.jpg',
       },
       {
         id: 'shj4658cc6cc45cx',
@@ -66,7 +66,7 @@ export class GetMallListService {
         description: 'Mall is largest in Kolkata and famous for kids',
         noOfFloors: 4,
         address: 'Kolkata xyz street,74001',
-        img: '/home/img/imgMall1.jpg',
+        img: '../../../../assets/images/m2.jpg',
       },
     ]);
   }

@@ -7,7 +7,7 @@ import { mallsItem } from '../../models/malls.model';
 @Component({
   selector: 'mall-list',
   templateUrl: './mall-list.component.html',
-  styleUrls:[],
+  styleUrls: ['./mall-list.component.scss'],
 })
 export class MallListComponent {
   selectedCity = '';
@@ -18,6 +18,8 @@ export class MallListComponent {
   mallDescription = '';
   noOfFloors: any;
   mallAddress = '';
+  filteredMallList: any[] = [];
+
   constructor(
     private acRoute: ActivatedRoute,
     private getMallListService: GetMallListService
@@ -48,10 +50,10 @@ export class MallListComponent {
     }
     console.log("mallNames",this.mallNames);
 
-    for (let i = 0; i < this.mallList.length; i++) {
-      this.mallsDetails = this.mallList[i];
-      this.mallNames.push(this.mallsDetails.name);
-    }
-    console.log("mallsDetails :",this.mallsDetails);
+    // for (let i = 0; i < this.mallList.length; i++) {
+    //   this.mallsDetails = this.mallList[i];
+    //   this.mallNames.push(this.mallsDetails.name);
+    // }
+    // console.log("mallsDetails :",this.mallsDetails);
   }
 }

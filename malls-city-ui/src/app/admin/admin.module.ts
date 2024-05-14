@@ -4,7 +4,7 @@ import { StoresComponent } from './components/stores/stores.component';
 import { MallsComponent } from './components/malls/malls.component';
 import { AddCityComponent } from './components/add-city/add-city.component';
 import { MaterialModule } from '../Material.Module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,6 +21,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     AdminHomeComponent
   ],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     MatTabsModule,
     MaterialModule,
