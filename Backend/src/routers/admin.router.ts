@@ -37,14 +37,15 @@ router.post("/addcity" , asyncHandler(async (req, res) => {
 )
 
 router.post("/addmall" ,upload.single('mallImg'),asyncHandler(async (req,res) => {
-        console.log("addmall body:=",req.body);
-        // console.log("addmall body:=",(req as any).file);
+        req.body["mallImg"]= (req as any).file.path;
+        console.log("******************addmall body***********************",req.body);
+        console.log("******************addmall file***********************",(req as any).file);
         let resObj = {
             msg:"Mall Added",
             name: req.body.name
         }
-        // const savedMall = await MallModel.create(req.body);
-        // console.log("savedMall,savedMall",savedMall);
+        const savedMall = await MallModel.create(req.body);
+        console.log("savedMall,savedMall",savedMall);
         res.send(resObj)
     })
 )

@@ -6,10 +6,9 @@ import { APIS, API_BASEURL } from '../constant/api.constant';
   providedIn: 'root',
 })
 export class SearchCityService {
-  baseUrl = API_BASEURL;
   constructor(private http: HttpClient) {}
 
   getAllCityList() {
-    return this.http.get(this.baseUrl + APIS.CITIES);
+    return this.http.get(API_BASEURL + APIS.CITIES);
   }
 }
