@@ -28,7 +28,7 @@ router.post("/addcity" , asyncHandler(async (req, res) => {
             name: req.body.name
         }
         const savedCity = await CityModel.create(req.body);
-        console.log(savedCity);
+        console.log("admin.router::/addcity::response:",savedCity);
         // const newUser = new User(req.body); // Create a new User object from request body
         // const savedUser = await newUser.save(); // Save the user to MongoDB
         // res.json(savedUser); // Send the saved user object back in the response
@@ -36,16 +36,40 @@ router.post("/addcity" , asyncHandler(async (req, res) => {
     }) 
 )
 
+router.get('/city/:cityCode',asyncHandler( async (req,res) => {
+        let response = {
+            value:false,
+            msg:"cityCode is new",
+            name:"",
+            state:"",
+            cityCode:0
+        }
+        const cityId = req.params.cityCode;    
+        const city = await CityModel.find({cityCode:cityId});
+        if(city.length) {
+            response = {
+                value:true,
+                msg:"cityCode Already Present",
+                name:city[0].name,
+                state:city[0].state,
+                cityCode:city[0].cityCode,
+            }
+            res.send(response);
+        } else {
+            res.send(response);
+        }
+        console.log("admin.router::/city/:cityCod::response:",response);
+    })
+)
+
 router.post("/addmall" ,upload.single('mallImg'),asyncHandler(async (req,res) => {
         req.body["mallImg"]= (req as any).file.path;
-        console.log("******************addmall body***********************",req.body);
-        console.log("******************addmall file***********************",(req as any).file);
         let resObj = {
             msg:"Mall Added",
             name: req.body.name
         }
         const savedMall = await MallModel.create(req.body);
-        console.log("savedMall,savedMall",savedMall);
+        console.log("admin.router::/addmall::savedMall:",savedMall);
         res.send(resObj)
     })
 )
