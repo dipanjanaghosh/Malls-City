@@ -32,6 +32,7 @@ export class MallsComponent  implements OnInit {
     });
   }
   onSubmit(form: FormGroup) {
+    console.log('Image:',this.previewImage);
     console.log('State:',form.value.selectedState);
     console.log('City:',form.value.selectedCity);
     console.log('MallName:', form.value.mallName);
