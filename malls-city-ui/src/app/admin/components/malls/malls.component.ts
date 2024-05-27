@@ -10,6 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class MallsComponent  implements OnInit {
   cityList: any;
   mallData: any;
+  previewImage: string | null = null;
   myForm!: FormGroup;
   constructor(private searchCityService: SearchCityService) {}
 
@@ -37,5 +38,24 @@ export class MallsComponent  implements OnInit {
     console.log('Total Floor Number:', form.value.floorNumber);
     console.log('Address:', form.value.address);
     console.log('Description:', form.value.description);
+  }
+
+  onImageUpload(event: any) {
+    const reader = new FileReader();
+
+    if (event.target.files && event.target.files[0]) {
+      const [file] = event.target.files; // Destructure to get the first file
+
+      // Basic file type validation (consider adding more checks as needed)
+      if (!file.type.startsWith('image/')) {
+        alert('Unsupported file type. Please select an image file.');
+        return;
+      }
+
+      reader.readAsDataURL(file);
+      reader.onload = (loadEvent: any) => {
+        this.previewImage = loadEvent.target.result;
+      };
+    }
   }
 }
