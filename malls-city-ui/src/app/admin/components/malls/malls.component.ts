@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchCityService } from 'src/app/shared/services/search-city.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-malls',
@@ -16,14 +16,29 @@ export class MallsComponent  implements OnInit {
 
   ngOnInit() {
     this.fetchCityList();
+    // let obj= {
+    //   selectedCity: "KPA",
+    //   mallName: "MALL 1",
+    //   floorNumber: 4,
+    //   address: "KAP KPA",
+    //   description: "this is test"
+    // }
     this.myForm = new FormGroup({
       selectedState: new FormControl(''),
       selectedCity: new FormControl(''),
       mallName: new FormControl(''),
       floorNumber: new FormControl(''),
-      address: new FormControl(''),
+      address: new FormControl('',[Validators.required]),
       description: new FormControl('')
     });
+
+   // this.myForm.patchValue(obj);
+
+  //   this.myForm.get("address").statusChanges.subscribe(x => {
+  //     console.log('firstname value changed')
+  //     console.log(x)
+  //  });
+
   }
   fetchCityList() {
     this.searchCityService.getAllCityList().subscribe((data: any) => {

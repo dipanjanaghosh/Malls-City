@@ -7,9 +7,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from '../Material.Module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
+import { HighlightsColorDirective } from './directives/highlights-color.directive';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, HomeComponent],
+  declarations: [HeaderComponent, FooterComponent, HomeComponent, HighlightsColorDirective],
   imports: [CommonModule, SharedRoutingModule, MaterialModule, FormsModule,HttpClientModule],
   exports: [HeaderComponent],
 })

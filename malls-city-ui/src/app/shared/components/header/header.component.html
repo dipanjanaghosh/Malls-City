@@ -2,15 +2,15 @@
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>{{ headerTitle }}</span>
+  <span appHighlightsColor [highlightsColor]="'white'">{{ headerTitle }}</span>
   <span class="example-spacer"></span>
   <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>favorite</mat-icon>
   </button> -->
-  <button mat-icon-button color="white" aria-label="Example icon button with a home icon" routerLink="/">
+  <button appHighlightsColor mat-icon-button color="white" aria-label="Example icon button with a home icon" routerLink="/">
     <mat-icon>home</mat-icon>
   </button>
-  <button mat-icon-button color="white" class="example-icon account_circle-icon" routerLink="/admin"
+  <button appHighlightsColor mat-icon-button color="white" class="example-icon account_circle-icon" routerLink="/admin"
     aria-label="Example icon-button with account_circle icon">
     <mat-icon>account_circle</mat-icon>
   </button>
