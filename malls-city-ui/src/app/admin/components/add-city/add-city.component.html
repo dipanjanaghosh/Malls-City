@@ -1,17 +1,24 @@
 <body>
-  <div class="container">
-    <div class="form-container">
-      <form action="#" method="post">
-        <label for="dropdown1">Select State</label>
-        <select id="dropdown1" name="dropdown1">
-          <option value="wb">West Bengal</option>
-          <option value="mh">Maharastra</option>
-          <option value="kn">Karnataka</option>
-        </select>
-        <label for="inputFieldCity">Add City</label>
-        <input type="text" id="inputFieldCity" name="inputFieldCity" placeholder="Enter City Name"><br><br>
+  <app-city-list *ngIf="cityList" cityList="cityList"></app-city-list>
 
-        <input type="submit" value="Submit">
+  <div class="container">
+    <div class="row">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <label for="state">Select State</label>
+        <select formControlName="selectedState" id="state">
+          <option value="" disabled selected>Select State</option>
+          <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+        </select>
+
+        <label for="cityName">City Name</label>
+        <input type="text" formControlName="cityName" id="cityName" placeholder="Enter City Name">
+
+        <label for="cityCode">City Code</label>
+        <input type="text" formControlName="cityCode" id="cityCode" placeholder="Enter City Code">
+        <p>
+        </p>
+
+        <button type="submit">Add City</button>
       </form>
     </div>
   </div>

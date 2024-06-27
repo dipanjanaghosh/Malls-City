@@ -79,8 +79,7 @@ input[type="submit"] {
 }
 
 .container {
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
 }
 .form-container {
   flex: 2;

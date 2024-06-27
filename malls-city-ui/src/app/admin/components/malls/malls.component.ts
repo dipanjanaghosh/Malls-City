@@ -1,45 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchCityService } from 'src/app/shared/services/search-city.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { STATES } from '../../constant/stateList.constant';
 
 @Component({
   selector: 'app-malls',
   templateUrl: './malls.component.html',
   styleUrls: ['./malls.component.scss'],
 })
-export class MallsComponent  implements OnInit {
+export class MallsComponent implements OnInit {
   cityList: any;
   mallData: any;
+  filteredCities: any[] = [];
   previewImage: string | null = null;
   myForm!: FormGroup;
+  states = STATES;
+
   constructor(private searchCityService: SearchCityService) {}
 
   ngOnInit() {
     this.fetchCityList();
-    // let obj= {
-    //   selectedCity: "KPA",
-    //   mallName: "MALL 1",
-    //   floorNumber: 4,
-    //   address: "KAP KPA",
-    //   description: "this is test"
-    // }
+    this.fetchFormData();
+  }
+
+  fetchFormData() {
     this.myForm = new FormGroup({
       selectedState: new FormControl(''),
       selectedCity: new FormControl(''),
       mallName: new FormControl(''),
       floorNumber: new FormControl(''),
-      address: new FormControl('',[Validators.required]),
-      description: new FormControl('')
+      address: new FormControl('', [Validators.required]),
+      description: new FormControl(''),
     });
 
-   // this.myForm.patchValue(obj);
-
-  //   this.myForm.get("address").statusChanges.subscribe(x => {
-  //     console.log('firstname value changed')
-  //     console.log(x)
-  //  });
-
+    this.myForm.get('selectedState')?.valueChanges.subscribe(selectedState => {
+      this.filteredCities = this.cityList.filter((city: { state: any; }) => city.state === selectedState);
+      this.myForm.get('selectedCity')?.setValue(''); // Reset the selected city
+    });
   }
+
   fetchCityList() {
     this.searchCityService.getAllCityList().subscribe((data: any) => {
       this.cityList = data;
@@ -47,9 +46,9 @@ export class MallsComponent  implements OnInit {
     });
   }
   onSubmit(form: FormGroup) {
-    console.log('Image:',this.previewImage);
-    console.log('State:',form.value.selectedState);
-    console.log('City:',form.value.selectedCity);
+    console.log('Image:', this.previewImage);
+    console.log('State:', form.value.selectedState);
+    console.log('City:', form.value.selectedCity);
     console.log('MallName:', form.value.mallName);
     console.log('Total Floor Number:', form.value.floorNumber);
     console.log('Address:', form.value.address);

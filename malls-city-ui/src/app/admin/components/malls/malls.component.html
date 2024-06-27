@@ -1,27 +1,27 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
-        <div class="image-upload">
-          <label for="imageUpload">Upload Image</label>
-          <input type="file" id="imageUpload" name="imageUpload" accept="image/*" (change)="onImageUpload($event)" />
-          <div *ngIf="previewImage" >
-            <img class="previewImage" [src]="previewImage" alt="Uploaded Image Preview">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)" enctype="multipart/form-data">
+        <div class="col-md-4">
+          <div class="image-upload">
+            <label for="imageUpload">Upload Image</label>
+            <input type="file" id="imageUpload" name="imageUpload" accept="image/*" (change)="onImageUpload($event)" />
+            <div *ngIf="previewImage" >
+              <img class="previewImage" [src]="previewImage" alt="Uploaded Image Preview">
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-md-8">
-        <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)" enctype="multipart/form-data">
+        <div class="col-md-8">
           <label>Select State</label>
           <select id="selectedState" name="selectedState" formControlName="selectedState">
-            <option value="West Bengal">West Bengal</option>
-            <option value="Maharastra">Maharastra</option>
-            <option value="Karnataka">Karnataka</option>
+            <option value="" disabled selected>Select State</option>
+            <option *ngFor="let state of states" [value]="state">{{state}}</option>
           </select>
 
           <label>Select City</label>
           <select id="selectedCity" name="selectedCity" formControlName="selectedCity">
+            <option value="" disabled selected>Select City</option>
             <option *ngFor="let city of cityList" [value]="city.name">{{city.name}}</option>
           </select>
 
@@ -38,8 +38,9 @@
           <input type="text" id="inputField" formControlName="description">
 
           <input type="submit" value="Submit">
-        </form>
-      </div>
+
+        </div>
+      </form>
     </div>
   </div>
 </body>

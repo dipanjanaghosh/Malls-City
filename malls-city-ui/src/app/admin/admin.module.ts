@@ -12,13 +12,15 @@ import { MatInputModule } from '@angular/material/input';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { CityListComponent } from './components/city-list/city-list.component';
 
 @NgModule({
   declarations: [
     StoresComponent,
     MallsComponent,
     AddCityComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    CityListComponent
   ],
   imports: [
     ReactiveFormsModule,
