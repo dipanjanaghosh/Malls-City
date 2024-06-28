@@ -15,8 +15,6 @@ export class AddCityComponent implements OnInit {
   myForm!: FormGroup;
   cityList: any;
 
-  @Input() cityListInput?: any[];
-
   constructor(
     private searchCityService: SearchCityService,
     private toster: ToastrService
@@ -27,13 +25,11 @@ export class AddCityComponent implements OnInit {
     this.fetchCityListIntoAccordian();
   }
 
-  fetchCityListIntoAccordian(){
-    if (!this.cityListInput) {
-      this.searchCityService.getAllCityList()
-        .subscribe(data => {
-          this.cityList = data;
-        });
-    }
+  fetchCityListIntoAccordian() {
+    this.searchCityService.getAllCityList().subscribe((data) => {
+      this.cityList = data;
+      console.log('fetchCityListIntoAccordian');
+    });
   }
 
   fetchFormData() {
@@ -56,12 +52,16 @@ export class AddCityComponent implements OnInit {
       console.log(cityData);
 
       this.searchCityService
-        .checkCity(formData.cityCode).subscribe((res: checkCityResponse) => {
+        .checkCity(formData.cityCode)
+        .subscribe((res: checkCityResponse) => {
           if (!res.value) {
-            this.searchCityService.addCity(cityData).subscribe((res: any) => {
-              console.log(res.msg);
-              this.toster.success(res.msg);
-            });
+            this.searchCityService
+              .addCity(cityData)
+              .subscribe(async (res: any) => {
+                await this.fetchCityListIntoAccordian();
+                console.log(res.msg);
+                this.toster.success(res.msg);
+              });
           } else {
             this.toster.error(res.msg, 'Oops, something went wrong!');
           }

@@ -20,20 +20,16 @@ import { CityListComponent } from './components/city-list/city-list.component';
     MallsComponent,
     AddCityComponent,
     AdminHomeComponent,
-    CityListComponent
+    CityListComponent,
   ],
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    MatTabsModule,
     MaterialModule,
     FormsModule,
     HttpClientModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule,
-    AdminRoutingModule
+    AdminRoutingModule,
   ],
-  exports: [AddCityComponent]
+  exports: [AddCityComponent],
 })
-export class AdminModule { }
+export class AdminModule {}

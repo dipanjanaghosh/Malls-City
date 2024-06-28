@@ -1,5 +1,5 @@
 <body>
-  <app-city-list *ngIf="cityList" cityList="cityList"></app-city-list>
+  <app-city-list *ngIf="cityList" [cityListInput]="cityList"></app-city-list>
 
   <div class="container">
     <div class="row">
@@ -7,16 +7,27 @@
         <label for="state">Select State</label>
         <select formControlName="selectedState" id="state">
           <option value="" disabled selected>Select State</option>
-          <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+          <option *ngFor="let state of states" [value]="state">
+            {{ state }}
+          </option>
         </select>
 
         <label for="cityName">City Name</label>
-        <input type="text" formControlName="cityName" id="cityName" placeholder="Enter City Name">
+        <input
+          type="text"
+          formControlName="cityName"
+          id="cityName"
+          placeholder="Enter City Name"
+        />
 
         <label for="cityCode">City Code</label>
-        <input type="text" formControlName="cityCode" id="cityCode" placeholder="Enter City Code">
-        <p>
-        </p>
+        <input
+          type="text"
+          formControlName="cityCode"
+          id="cityCode"
+          placeholder="Enter City Code"
+        />
+        <p></p>
 
         <button type="submit">Add City</button>
       </form>
