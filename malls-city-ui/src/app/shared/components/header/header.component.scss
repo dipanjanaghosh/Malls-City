@@ -1,16 +1,16 @@
 mat-toolbar {
-  background-color: #BD32FF;
+  background-color: #bd32ff;
 
   .example-spacer {
     flex: 1 1 auto;
   }
 }
-.modal-content{
+.modal-content {
   background-color: transparent;
   top: 60px;
   padding: 20px;
 
-  .closemodal{
+  .closemodal {
     background: mediumslateblue;
     width: auto;
     border-radius: 20px;
