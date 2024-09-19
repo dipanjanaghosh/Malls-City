@@ -7,11 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './Material.Module';
 import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
+import { StoreModule } from '@ngrx/store';
+import { appReducer } from './shared/store/app.reducers';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,9 +24,11 @@ import { ToastrModule } from 'ngx-toastr';
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
-    })
+    }),
+    StoreModule.forRoot({ globalState: appReducer }),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
