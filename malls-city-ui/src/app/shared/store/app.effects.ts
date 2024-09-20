@@ -17,6 +17,7 @@ export class AppEffects {
       exhaustMap((action) => {
         return this.searchCityService.getAllCityList().pipe(
           map((data) => {
+            console.log(data);
             return getCityListSuccess({ cities: data });
           })
         );

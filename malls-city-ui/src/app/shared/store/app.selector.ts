@@ -3,4 +3,4 @@ import { AppState } from './app.model';
 
 export const getAppState = createFeatureSelector<AppState>('appState');
 
-export const getCityList = createSelector(getAppState, (state) => state.cities);
+export const getCities = createSelector(getAppState, (state) => state.cities);

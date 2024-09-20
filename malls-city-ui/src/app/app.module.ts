@@ -10,6 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from './shared/store/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './shared/store/app.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,7 @@ import { EffectsModule } from '@ngrx/effects';
       preventDuplicates: true,
     }),
     StoreModule.forRoot({ globalState: appReducer }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AppEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
