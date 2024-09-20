@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import { appReducer } from './shared/store/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './shared/store/app.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { AppEffects } from './shared/store/app.effects';
     }),
     StoreModule.forRoot({ globalState: appReducer }),
     EffectsModule.forRoot([AppEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [],
   bootstrap: [AppComponent],
