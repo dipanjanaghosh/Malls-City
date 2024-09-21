@@ -1,0 +1,14 @@
+.mall-list {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  .example-card{
+    width: 400px;
+    height: max-content;
+    background: #8a2be245;
+    color: white;
+    box-shadow: 2px 1px 4px #7b1fa2;
+  }
+}

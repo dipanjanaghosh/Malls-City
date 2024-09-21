@@ -1,0 +1,21 @@
+<div class="accordion">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> List Of Cities already added </mat-panel-title>
+      </mat-expansion-panel-header>
+      <table class="cityListTable">
+        <tbody>
+          <tr *ngFor="let city of cityListInput">
+            <td class="rowcityname">{{ city.name }}</td>
+            <td class="rowedit">
+              <button mat-raised-button (click)="handleEditCity(city)">
+                Edit
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
