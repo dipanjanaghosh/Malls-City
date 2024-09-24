@@ -4,7 +4,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title> List Of Cities already added </mat-panel-title>
       </mat-expansion-panel-header>
-      <table class="cityListTable">
+      <table class="cityListTable" *ngIf="cityListInput.length; else elseBlock">
         <tbody>
           <tr *ngFor="let city of cityListInput">
             <td class="rowcityname">{{ city.name }}</td>
@@ -16,6 +16,9 @@
           </tr>
         </tbody>
       </table>
+      <ng-template #elseBlock
+        >No city found.Please add City or check your network call</ng-template
+      >
     </mat-expansion-panel>
   </mat-accordion>
 </div>
