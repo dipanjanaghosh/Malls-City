@@ -49,10 +49,6 @@ export class MallsComponent implements OnInit {
     console.log('Image:', this.previewImage);
     console.log('State:', form.value.selectedState);
     console.log('City:', form.value.selectedCity);
-    console.log('MallName:', form.value.mallName);
-    console.log('Total Floor Number:', form.value.floorNumber);
-    console.log('Address:', form.value.address);
-    console.log('Description:', form.value.description);
   }
 
   onImageUpload(event: any) {
