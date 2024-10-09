@@ -25,7 +25,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
-      preventDuplicates: true,
+      preventDuplicates: false,
     }),
     StoreModule.forRoot({ globalState: appReducer }),
     EffectsModule.forRoot([AppEffects]),
