@@ -49,6 +49,10 @@ export class AppEffects {
               this.toster.error('City exists', 'Please try unique CityCode!');
             }
             return checkCityNameSuccess({ checkCityResponse: data });
+          }),
+          catchError((error) =>{
+            this.toster.error('checkCity Error', error);
+            return of();
           })
         );
       })

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { APIS, API_BASEURL } from '../constant/api.constant';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 import { checkCityResponse } from 'src/app/admin/models/checkCity.model';
 import { CityList } from '../store/app.model';
 
@@ -16,8 +16,16 @@ export class SearchCityService {
   }
 
   checkCity(cityCode: number): Observable<checkCityResponse> {
-    return this.http.get<checkCityResponse>(
-      `${API_BASEURL}${APIS.CHECK_CITY}/${cityCode}`
+    return this.http.get<checkCityResponse>(`${API_BASEURL}${APIS.CHECK_CITY}/${cityCode}`)
+    .pipe(
+      map((res) =>{
+        return res;
+      }),
+      catchError((err) => {
+        console.log("Error url :",err.url)
+        console.log("Error text :", err.error.text)
+        throw new Error(err.error.text);
+      })
     );
   }
 

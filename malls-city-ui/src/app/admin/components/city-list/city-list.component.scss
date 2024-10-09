@@ -1,3 +1,14 @@
+.accordion {
+  .accordion-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mat-expansion-panel {
+    width: 700px;
+  }
+}
 .accordion-item {
   border: none;
   border-radius: 0;
@@ -14,15 +25,16 @@
   border-collapse: collapse;
   width: 100%;
   background-color: aliceblue;
+  color: #000;
+  td {
+    border: 1px solid #000;
+  }
 
   .rowcityname {
-    border: 1px solid #000;
     padding: 5px;
-    color: #000;
   }
 
   .rowedit {
-    border: 1px solid #000;
     padding: 5px;
     text-align: center;
   }
