@@ -40,10 +40,15 @@ export class MallsComponent implements OnInit {
   }
 
   fetchCityList() {
-    this.searchCityService.getAllCityList().subscribe((data: any) => {
+    this.searchCityService.getAllCityList().subscribe(
+      (data: any) => {
       this.cityList = data;
       console.log(this.cityList);
-    });
+      },
+      (err: any) => {
+        console.error('Error fetching city list:', err);
+      }
+    );
   }
   onSubmit(form: FormGroup) {
     console.log('Image:', this.previewImage);
