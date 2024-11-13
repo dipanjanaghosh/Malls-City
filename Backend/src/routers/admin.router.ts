@@ -1,9 +1,13 @@
 import { Router } from "express";
-const shopController = require("../controller/shopController");
-const { upload } = require("../controller/fileUploadController");
+const userController = require("../controller/userController");
 const router = Router();
 
-router.post("/addshop", upload.single("shopImg"), shopController.addShop);
+router
+    .route("/")
+    .get(userController.getUser)
+    .post(userController.checkBodyMiddleWare, userController.addUser);
+
+router.route("/login").post(userController.loginUser);
 
 //wildcard routes get called when no routes are matched
 router.get("*", (req, res) => {
