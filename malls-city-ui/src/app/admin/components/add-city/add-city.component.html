@@ -1,7 +1,8 @@
-<body>
-  <app-city-list *ngIf="cityList" [cityListInput]="cityList"></app-city-list>
-
-  <div class="container">
+<div class="main-container">
+  <div class="city-list">
+    <app-city-list *ngIf="cityList" [cityListInput]="cityList"></app-city-list>
+  </div>
+  <div class="city-form">
     <div class="row">
       <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <label for="state">Select State</label>
@@ -29,8 +30,8 @@
         />
         <p></p>
 
-        <button type="submit">Add City</button>
+        <button mat-raised-button type="submit">Add City</button>
       </form>
     </div>
   </div>
-</body>
+</div>
