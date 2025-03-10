@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { APIS, API_BASEURL } from '../constant/api.constant';
+import { APIS, API_BASEURL } from '../../constant/app.constant';
 import { Observable } from 'rxjs';
 import { checkCityResponse } from 'src/app/admin/models/checkCity.model';
 
