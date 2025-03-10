@@ -12,26 +12,43 @@ import { appReducer } from './shared/store/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './shared/store/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthService } from './shared/services/auth.service';
+import { AuthGuard } from './shared/guards/auth.guard';
 
+export function tokenGetter() {
+  return localStorage.getItem('currentUser');
+}
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AuthModule,
     MaterialModule,
     SharedModule,
-    HttpClientModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
-      preventDuplicates: false,
+      preventDuplicates: true,
     }),
     StoreModule.forRoot({ globalState: appReducer }),
     EffectsModule.forRoot([AppEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['your-api-domain.com'],
+        disallowedRoutes: ['http://your-api-domain.com/auth/login'],
+      },
+    }),
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
