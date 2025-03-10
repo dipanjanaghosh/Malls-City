@@ -11,7 +11,7 @@ import { CityList } from '../store/app.model';
 export class SearchCityService {
   constructor(private http: HttpClient) {}
   getAllCityList(): Observable<CityList[]> {
-    return this.http.get<CityList[]>(API_BASEURL + APIS.CITIES);
+    return this.http.get<CityList[]>(API_BASEURL + APIS.CITY);
   }
 
   checkCity(cityCode: number): Observable<checkCityResponse> {
