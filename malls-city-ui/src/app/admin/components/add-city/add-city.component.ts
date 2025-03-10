@@ -2,8 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { STATES } from '../../constant/stateList.constant';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SearchCityService } from 'src/app/shared/services/search-city.service';
-import { checkCityResponse } from '../../models/checkCity.model';
-import { ToastrService } from 'ngx-toastr';
+import { Store } from '@ngrx/store';
+import { getCities } from 'src/app/shared/store/app.selector';
+import { checkCityName } from 'src/app/shared/store/app.action';
+import { newCityNameModel } from 'src/app/shared/store/app.model';
 
 @Component({
   selector: 'app-add-city',
@@ -14,11 +16,9 @@ export class AddCityComponent implements OnInit {
   states = STATES;
   myForm!: FormGroup;
   cityList: any;
+  cityData!: newCityNameModel;
 
-  constructor(
-    private searchCityService: SearchCityService,
-    private toster: ToastrService
-  ) {}
+  constructor(private store: Store) {}
 
   ngOnInit() {
     this.fetchFormData();
@@ -26,9 +26,8 @@ export class AddCityComponent implements OnInit {
   }
 
   fetchCityListIntoAccordian() {
-    this.searchCityService.getAllCityList().subscribe((data) => {
+    this.store.select(getCities).subscribe((data) => {
       this.cityList = data;
-      console.log('fetchCityListIntoAccordian');
     });
   }
 
@@ -43,31 +42,17 @@ export class AddCityComponent implements OnInit {
   onSubmit() {
     if (this.myForm.valid) {
       const formData = this.myForm.value;
-      const cityData = {
+      this.cityData = {
         state: formData.selectedState,
         name: formData.cityName,
         cityCode: formData.cityCode,
       };
-      console.log(formData);
-      console.log(cityData);
-
-      this.searchCityService
-        .checkCity(formData.cityCode)
-        .subscribe((res: checkCityResponse) => {
-          if (!res.value) {
-            this.searchCityService
-              .addCity(cityData)
-              .subscribe(async (res: any) => {
-                await this.fetchCityListIntoAccordian();
-                console.log(res.msg);
-                this.toster.success(res.msg);
-              });
-          } else {
-            this.toster.error(res.msg, 'Oops, something went wrong!');
-          }
-        });
-    } else {
-      console.log('Form is not valid');
+      this.store.dispatch(
+        checkCityName({
+          cityCode: this.cityData.cityCode,
+          newCityName: this.cityData,
+        })
+      );
     }
   }
 }

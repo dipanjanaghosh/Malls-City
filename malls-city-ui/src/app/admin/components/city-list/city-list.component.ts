@@ -15,7 +15,7 @@ export class CityListComponent {
   cityList = new MatTableDataSource(this.cityListInput);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private searchCityService: SearchCityService) {}
+  constructor() {}
 
   ngOnInit() {
     console.log('citylist', this.cityListInput);

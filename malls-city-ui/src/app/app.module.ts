@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -7,6 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './Material.Module';
 import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
+import { StoreModule } from '@ngrx/store';
+import { appReducer } from './shared/store/app.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './shared/store/app.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -32,6 +37,9 @@ export function tokenGetter() {
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
+    StoreModule.forRoot({ globalState: appReducer }),
+    EffectsModule.forRoot([AppEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

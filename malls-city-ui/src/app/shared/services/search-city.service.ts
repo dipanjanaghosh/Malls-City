@@ -3,15 +3,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { APIS, API_BASEURL } from '../../constant/app.constant';
 import { Observable } from 'rxjs';
 import { checkCityResponse } from 'src/app/admin/models/checkCity.model';
+import { CityList } from '../store/app.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchCityService {
   constructor(private http: HttpClient) {}
-
-  getAllCityList() {
-    return this.http.get(API_BASEURL + APIS.CITY);
+  getAllCityList(): Observable<CityList[]> {
+    return this.http.get<CityList[]>(API_BASEURL + APIS.CITIES);
   }
 
   checkCity(cityCode: number): Observable<checkCityResponse> {
