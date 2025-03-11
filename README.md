@@ -41,3 +41,7 @@
 
     step 1 : use cd malls-city-ui
     Strp 2 : npm start
+
+## logging error :
+
+    morgan logger middleware has been used to log errors on the server side

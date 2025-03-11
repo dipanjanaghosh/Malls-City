@@ -27,7 +27,7 @@ exports.addUser = async (req, res) => {
 };
 
 exports.getUser = async (req, res) => {
-    const userArr = await UserModel.find();
+    const userArr = await userModel.find();
     console.log("user arr : *****", userArr);
     res.send({
         statusMsg: "Success",

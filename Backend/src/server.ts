@@ -22,13 +22,13 @@ app.use(
         origin: ["http://localhost:4200"],
     })
 );
-app.use(morgan("dev"));
+app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use((req, res, next) => {
-    console.log("From Custom Middleware :", req.url);
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log("From Custom Middleware :", req.url);
+//     next();
+// });
 app.use("/api/v1/mall", mallRouter);
 app.use("/api/v1/shop", ShopRouter);
 app.use("/api/v1/city", cityRouter);
