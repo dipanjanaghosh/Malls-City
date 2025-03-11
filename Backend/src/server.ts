@@ -6,7 +6,7 @@ import { MYDATA } from "./data";
 import sharedRouter from "./routers/shared.router";
 import adminRouter from "./routers/admin.router";
 import { dbConnect } from "./configs/database.config";
-import morgan from "morgan";
+import morgan from "morgan"; //HTTP request logger middleware for node.js
 const cityRouter = require("./routers/cityRouter");
 const mallRouter = require("./routers/mallRouter");
 const ShopRouter = require("./routers/shopRouter");

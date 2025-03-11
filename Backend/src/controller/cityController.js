@@ -65,13 +65,3 @@ exports.getAllCity = async (req, res) => {
     // const readable = fs.createReadStream("./data.ts");
     // readable.pipe(res);
 };
-
-exports.checkBodyMiddleWare = (req, res, next) => {
-    if (!req.body.name || !req.body.state || !req.body.cityCode) {
-        return res.status(400).send({
-            statsu: "fail",
-            error: "All fields are required.",
-        });
-    }
-    next();
-};

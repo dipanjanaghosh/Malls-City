@@ -1,19 +1,22 @@
-const { UserModel } = require("../models/userModel");
+const { userModel } = require("../models/userModel");
+const jwt = require("jsonwebtoken");
 
 exports.addUser = async (req, res) => {
     console.log("body received", req.body);
     try {
-        const user = await UserModel.create(req.body);
+        const user = await userModel.create(req.body);
         console.log("/admin/addUser :", user);
-        res.send(req.body);
+        res.status(201).json({ message: "User created successfully" });
     } catch (err) {
         if (err.code === 11000) {
+            console.log("/admin/addUser :", err);
             res.status(500).send({
                 status: "fail",
                 error: "Error Adding User.Duplicate Key",
                 keyName: err?.keyValue,
             });
         } else {
+            console.log("/admin/addUser :", err);
             res.status(500).send({
                 status: "fail",
                 error: "Error Adding User",
@@ -21,16 +24,6 @@ exports.addUser = async (req, res) => {
             });
         }
     }
-};
-
-exports.checkBodyMiddleWare = (req, res, next) => {
-    if (!req.body.name || !req.body.email || !req.body.password) {
-        return res.status(400).send({
-            statsu: "fail",
-            error: "Name or Email or Password is missing",
-        });
-    }
-    next();
 };
 
 exports.getUser = async (req, res) => {
@@ -44,20 +37,30 @@ exports.getUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-    const user = await UserModel.find({ email: req.body.email });
-    console.log("user : *****", user);
-    if (
-        user[0].password === req.body.password &&
-        user[0].email === req.body.email
-    ) {
-        res.send({
-            statusValue: "Success",
-            statusMsg: "User logged in successfully",
-        });
-    } else {
-        res.send({
-            statusValue: "fail",
-            statusMsg: "Email or Password does not match",
-        });
+    try {
+        console.log("login user : *****", req.body);
+        // const user = await UserModel.find({ email: req.body.email });
+        const user = await userModel.findOne({ email: req.body.email });
+        console.log("user : *****", user);
+        if (!user) {
+            return res.status(401).json({ message: "Invalid credentials" });
+        }
+        const isPasswordValid = await user.comparePassword(req.body.password);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: "Invalid credentials" });
+        }
+
+        // Generate JWT
+        const token = jwt.sign(
+            { userId: user._id, email: user.email }, // Payload
+            process.env.JWT_SECRET, // Secret key (store in .env)
+            { expiresIn: "1h" } // Token expiration
+        );
+
+        res.json({ token, userId: user._id, username: user.username });
+    } catch (error) {
+        console.error("Login error:", error);
+        res.status(500).json({ message: "Login failed", error: error.message });
     }
 };

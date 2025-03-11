@@ -1,11 +1,9 @@
 import { Router } from "express";
 const userController = require("../controller/userController");
+const checkBodyMiddleWare = require("../middlewares/checkBodyMiddleware");
 const router = Router();
 
-router
-    .route("/")
-    .get(userController.getUser)
-    .post(userController.checkBodyMiddleWare, userController.addUser);
+router.route("/").get(userController.getUser).post(userController.addUser);
 
 router.route("/login").post(userController.loginUser);
 
