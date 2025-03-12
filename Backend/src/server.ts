@@ -11,6 +11,7 @@ const logger = require("./appLogger");
 const cityRouter = require("./routers/cityRouter");
 const mallRouter = require("./routers/mallRouter");
 const ShopRouter = require("./routers/shopRouter");
+const logRouter = require("./routers/logRouter");
 
 // Connect to MongoDB database
 dbConnect();
@@ -39,6 +40,7 @@ app.use("/api/v1/shop", ShopRouter);
 app.use("/api/v1/city", cityRouter);
 app.use("/api/v1/shared", sharedRouter);
 app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/logs", logRouter);
 
 //www.youtube.com/watch?v=WqJ0P8JnftI
 

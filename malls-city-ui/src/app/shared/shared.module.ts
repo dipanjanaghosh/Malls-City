@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { HighlightsColorDirective } from './directives/highlight/highlights-color.directive';
 import { RepeatitemsDirective } from './directives/repeat/repeatitems.directive';
+import { LoggerService } from './services/logger.service';
+import { SearchCityService } from './services/search-city.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -26,5 +29,6 @@ import { RepeatitemsDirective } from './directives/repeat/repeatitems.directive'
     HttpClientModule,
   ],
   exports: [HeaderComponent],
+  providers: [LoggerService, SearchCityService, AuthService],
 })
 export class SharedModule {}

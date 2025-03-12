@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SearchCityService } from '../../services/search-city.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { getCityList } from '../../store/app.action';
 import { getCities } from '../../store/app.selector';
-import { AppStateModel } from '../../store/app.model';
 import { Subscription } from 'rxjs';
+import { LoggerService } from '../../services/logger.service';
 
 @Component({
   selector: 'app-search-city',
@@ -18,9 +17,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   subs!: Subscription;
 
   constructor(
-    private searchCityService: SearchCityService,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private log: LoggerService
   ) {}
 
   ngOnInit() {
@@ -34,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.store.dispatch(getCityList());
     this.subs = this.store.select(getCities).subscribe((data) => {
       this.cityList = data;
+      this.log.info(`home.component.ts::City List${this.cityList}`);
     });
   }
 

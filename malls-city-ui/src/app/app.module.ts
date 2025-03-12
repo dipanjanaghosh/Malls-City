@@ -15,7 +15,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from './shared/guards/auth.guard';
 
 export function tokenGetter() {
@@ -48,7 +47,7 @@ export function tokenGetter() {
       },
     }),
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

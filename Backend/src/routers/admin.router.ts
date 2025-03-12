@@ -1,6 +1,5 @@
 import { Router } from "express";
 const userController = require("../controller/userController");
-const checkBodyMiddleWare = require("../middlewares/checkBodyMiddleware");
 const router = Router();
 
 router.route("/").get(userController.getUser).post(userController.addUser);
