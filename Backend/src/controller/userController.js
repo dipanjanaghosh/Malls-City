@@ -1,22 +1,29 @@
 const { userModel } = require("../models/userModel");
+const logger = require("../appLogger");
 const jwt = require("jsonwebtoken");
 
 exports.addUser = async (req, res) => {
-    console.log("body received", req.body);
+    logger.info(
+        `userController::addUser:: body received : *****${JSON.stringify(
+            req.body
+        )}`
+    );
     try {
         const user = await userModel.create(req.body);
-        console.log("/admin/addUser :", user);
+        logger.info(
+            `userController:: user added : *****${JSON.stringify(user)}`
+        );
         res.status(201).json({ message: "User created successfully" });
     } catch (err) {
         if (err.code === 11000) {
-            console.log("/admin/addUser :", err);
+            logger.info(`addUser:error If Block :${JSON.stringify(err)}`);
             res.status(500).send({
                 status: "fail",
                 error: "Error Adding User.Duplicate Key",
                 keyName: err?.keyValue,
             });
         } else {
-            console.log("/admin/addUser :", err);
+            logger.info(`addUser:error else Block :${JSON.stringify(err)}`);
             res.status(500).send({
                 status: "fail",
                 error: "Error Adding User",
@@ -28,7 +35,9 @@ exports.addUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
     const userArr = await userModel.find();
-    console.log("user arr : *****", userArr);
+    logger.info(
+        `userController::getUser::userArr : *****${JSON.stringify(userArr)}`
+    );
     res.send({
         statusMsg: "Success",
         list: userArr,
@@ -38,10 +47,16 @@ exports.getUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
     try {
-        console.log("login user : *****", req.body);
+        logger.info(
+            `userController::loginUser:: req.body : *****${JSON.stringify(
+                req.body
+            )}`
+        );
         // const user = await UserModel.find({ email: req.body.email });
         const user = await userModel.findOne({ email: req.body.email });
-        console.log("user : *****", user);
+        logger.info(
+            `userController::loginUser:: user : *****${JSON.stringify(user)}`
+        );
         if (!user) {
             return res.status(401).json({ message: "Invalid credentials" });
         }
@@ -58,9 +73,20 @@ exports.loginUser = async (req, res) => {
             { expiresIn: "1h" } // Token expiration
         );
 
-        res.json({ token, userId: user._id, username: user.username });
+        let resObject = { token, userId: user._id, username: user.username };
+        logger.info(
+            `userController::loginUser:: resObject : *****${JSON.stringify(
+                resObject
+            )}`
+        );
+
+        res.json(resObject);
     } catch (error) {
-        console.error("Login error:", error);
+        logger.error(
+            `userController::loginUser:: Login error: : *****${JSON.stringify(
+                error
+            )}`
+        );
         res.status(500).json({ message: "Login failed", error: error.message });
     }
 };

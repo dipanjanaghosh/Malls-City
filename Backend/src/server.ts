@@ -7,6 +7,7 @@ import sharedRouter from "./routers/shared.router";
 import adminRouter from "./routers/admin.router";
 import { dbConnect } from "./configs/database.config";
 import morgan from "morgan"; //HTTP request logger middleware for node.js
+const logger = require("./appLogger");
 const cityRouter = require("./routers/cityRouter");
 const mallRouter = require("./routers/mallRouter");
 const ShopRouter = require("./routers/shopRouter");
@@ -22,7 +23,11 @@ app.use(
         origin: ["http://localhost:4200"],
     })
 );
-app.use(morgan("combined"));
+app.use(
+    morgan("combined", {
+        stream: { write: (message) => logger.info(message.trim()) },
+    })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use((req, res, next) => {

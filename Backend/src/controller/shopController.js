@@ -1,7 +1,9 @@
 const { ShopModel } = require("../models/shop.model");
+const logger = require("../appLogger");
 
 exports.getAllShop = async (req, res) => {
     const shop = await ShopModel.find();
+    logger.info(`shopController::getAllShop :shop length = ${shop.length}`);
     res.send(shop);
 };
 
@@ -12,6 +14,10 @@ exports.addShop = async (req, res) => {
         name: req.body.name,
     };
     const savedShop = await ShopModel.create(req.body);
-    console.log("/post/shop::savedshop:", savedShop);
+    logger.info(
+        `shopController:addShop::-------------resObj--------:: ${JSON.stringify(
+            resObj
+        )}-----savedShop :----${JSON.stringify(savedShop)}`
+    );
     res.send(resObj);
 };

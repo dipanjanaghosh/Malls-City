@@ -1,12 +1,21 @@
 const multer = require("multer");
+const logger = require("../appLogger");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         if (file.fieldname === "mallImg") {
             cb(null, "./uploads/mall");
-            console.log("mallImg file--------");
+            logger.info(
+                `fileUploadController:://storage::mallImg file--------:: ${JSON.stringify(
+                    file
+                )}`
+            );
         } else if (file.fieldname === "shopImg") {
-            console.log("shopImg file--------");
+            logger.info(
+                `fileUploadController:://storage::shopImg file--------:: ${JSON.stringify(
+                    file
+                )}`
+            );
             cb(null, "./uploads/shop");
         }
     },

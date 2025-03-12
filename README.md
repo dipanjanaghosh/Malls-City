@@ -45,3 +45,10 @@
 ## logging error :
 
     morgan logger middleware has been used to log errors on the server side
+
+    A simple and universal logging library with support for multiple transports has been used called winston.
+    A transport is essentially a storage device for your logs. Each winston logger can have multiple transports.
+    winston aims to decouple parts of the logging process to make it more flexible and extensible. Attention is given to supporting flexibility in log formatting & level.
+
+    Logs can be rotated based on a date, size limit, and old logs can be removed based on count or elapsed days.
+    winston-daily-rotate-file has been used to rotate log files.

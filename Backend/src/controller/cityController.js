@@ -1,4 +1,5 @@
 const { CityModel } = require("../models/city.model");
+const logger = require("../appLogger");
 
 exports.getOneCity = async (req, res) => {
     let response = {
@@ -22,7 +23,9 @@ exports.getOneCity = async (req, res) => {
     } else {
         res.send(response);
     }
-    console.log("admin.router::/city/:cityCod::response:", response);
+    logger.info(
+        `cityController:://getOneCity::response:: ${JSON.stringify(response)}`
+    );
 };
 
 exports.addCity = async (req, res) => {
@@ -31,7 +34,11 @@ exports.addCity = async (req, res) => {
         name: req.body.name,
     };
     const savedCity = await CityModel.create(req.body);
-    console.log("admin.router::/addcity::response:", savedCity);
+    logger.info(
+        `cityController:://addcity::response:: cities.length : ${JSON.stringify(
+            savedCity
+        )}`
+    );
     // const newUser = new User(req.body); // Create a new User object from request body
     // const savedUser = await newUser.save(); // Save the user to MongoDB
     // res.json(savedUser); // Send the saved user object back in the response
@@ -40,6 +47,9 @@ exports.addCity = async (req, res) => {
 
 exports.getAllCity = async (req, res) => {
     const cities = await CityModel.find();
+    logger.info(
+        `cityController::/getallcity::response: cities.length : ${cities.length}`
+    );
     res.send(cities);
 
     // fs.readFile("./data.ts", (err, data) => {
