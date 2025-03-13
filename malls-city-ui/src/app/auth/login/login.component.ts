@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { LoggerService } from 'src/app/shared/services/logger.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private log: LoggerService, // injecting LoggerService to use in this component
     private authService: AuthService
   ) {}
 
@@ -36,12 +38,15 @@ export class LoginComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() {
+  get getLoginForm() {
     return this.loginForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
+    this.log.info(
+      `login.component.ts:onSubmit::${JSON.stringify(this.getLoginForm)}`
+    );
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -50,7 +55,10 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.authService
-      .login(this.f['username'].value, this.f['password'].value)
+      .login(
+        this.getLoginForm['username'].value,
+        this.getLoginForm['password'].value
+      )
       .pipe(first())
       .subscribe(
         (data) => {
@@ -65,6 +73,6 @@ export class LoginComponent implements OnInit {
 
   loginWithGoogle() {
     //write logic here
-    console.log('loginWithGoogle');
+    this.log.info(`login.component.ts:loginWithGoogle clicked::`);
   }
 }

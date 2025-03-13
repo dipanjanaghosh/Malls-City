@@ -3,6 +3,7 @@ import { SearchCityService } from 'src/app/shared/services/search-city.service';
 import { CityList, checkCityResponse } from '../../models/checkCity.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { LoggerService } from 'src/app/shared/services/logger.service';
 
 @Component({
   selector: 'app-city-list',
@@ -15,10 +16,14 @@ export class CityListComponent {
   cityList = new MatTableDataSource(this.cityListInput);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor() {}
+  constructor(private log: LoggerService) {}
 
   ngOnInit() {
-    console.log('citylist', this.cityListInput);
+    this.log.info(
+      `cityList.component.ts:ngOnInit:cityListInput::${JSON.stringify(
+        this.cityListInput
+      )}`
+    );
     this.cityList = new MatTableDataSource(this.cityListInput);
   }
   ngAfterViewInit() {
@@ -27,6 +32,8 @@ export class CityListComponent {
 
   handleEditCity(city: checkCityResponse) {
     // TODO: Implement editing city functionality
-    console.log(`Editing city: ${city.name}`, city);
+    this.log.info(
+      `cityList.component.ts:Editing city::${JSON.stringify(city)}`
+    );
   }
 }

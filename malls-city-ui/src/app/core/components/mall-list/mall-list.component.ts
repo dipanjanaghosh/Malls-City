@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { paramData } from '../../models/searchTerm.model';
 import { GetMallListService } from '../../service/getmall-list.service';
 import { mallsItem } from '../../models/malls.model';
+import { LoggerService } from 'src/app/shared/services/logger.service';
 
 @Component({
   selector: 'mall-list',
@@ -12,8 +13,8 @@ import { mallsItem } from '../../models/malls.model';
 export class MallListComponent {
   selectedCity = '';
   mallList: mallsItem[] = [];
-  mallsDetails!: mallsItem ;
-  mallNames :string[] = [];
+  mallsDetails!: mallsItem;
+  mallNames: string[] = [];
   mallCity = '';
   mallDescription = '';
   noOfFloors: any;
@@ -22,7 +23,8 @@ export class MallListComponent {
 
   constructor(
     private acRoute: ActivatedRoute,
-    private getMallListService: GetMallListService
+    private getMallListService: GetMallListService,
+    private log: LoggerService
   ) {}
 
   ngOnInit() {
@@ -37,18 +39,25 @@ export class MallListComponent {
 
     this.acRoute.queryParams.subscribe((data) => {
       this.selectedCity = data['city'];
-      console.log(this.selectedCity);
+      this.log.info(
+        `mall-list.component.ts::City List${JSON.stringify(this.selectedCity)}`
+      );
+      console.log();
     });
   }
 
   getMallList() {
     this.mallList = this.getMallListService.getMallListForSelectedCity();
-    console.log('The mall list :', this.mallList);
+    this.log.info(
+      `mall-list.component.ts:mallList:${JSON.stringify(this.mallList)}`
+    );
 
     for (let mall of this.mallList) {
       this.mallNames.push(mall.name);
     }
-    console.log("mallNames",this.mallNames);
+    this.log.info(
+      `mall-list.component.ts:mallNames:${JSON.stringify(this.mallNames)}`
+    );
 
     // for (let i = 0; i < this.mallList.length; i++) {
     //   this.mallsDetails = this.mallList[i];

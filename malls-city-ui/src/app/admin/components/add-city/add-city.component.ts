@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { getCities } from 'src/app/shared/store/app.selector';
 import { checkCityName } from 'src/app/shared/store/app.action';
 import { newCityNameModel } from 'src/app/shared/store/app.model';
+import { LoggerService } from 'src/app/shared/services/logger.service';
 
 @Component({
   selector: 'app-add-city',
@@ -18,7 +19,7 @@ export class AddCityComponent implements OnInit {
   cityList: any;
   cityData!: newCityNameModel;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private log: LoggerService) {}
 
   ngOnInit() {
     this.fetchFormData();
@@ -40,6 +41,9 @@ export class AddCityComponent implements OnInit {
   }
 
   onSubmit() {
+    this.log.info(
+      `addCity.component.ts:onSubmit:${JSON.stringify(this.myForm.value)}`
+    );
     if (this.myForm.valid) {
       const formData = this.myForm.value;
       this.cityData = {

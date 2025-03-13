@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SearchCityService } from 'src/app/shared/services/search-city.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { STATES } from '../../constant/stateList.constant';
+import { LoggerService } from 'src/app/shared/services/logger.service';
 
 @Component({
   selector: 'app-malls',
@@ -16,7 +17,10 @@ export class MallsComponent implements OnInit {
   myForm!: FormGroup;
   states = STATES;
 
-  constructor(private searchCityService: SearchCityService) {}
+  constructor(
+    private searchCityService: SearchCityService,
+    private log: LoggerService
+  ) {}
 
   ngOnInit() {
     this.fetchCityList();
@@ -33,10 +37,14 @@ export class MallsComponent implements OnInit {
       description: new FormControl(''),
     });
 
-    this.myForm.get('selectedState')?.valueChanges.subscribe(selectedState => {
-      this.filteredCities = this.cityList.filter((city: { state: any; }) => city.state === selectedState);
-      this.myForm.get('selectedCity')?.setValue(''); // Reset the selected city
-    });
+    this.myForm
+      .get('selectedState')
+      ?.valueChanges.subscribe((selectedState) => {
+        this.filteredCities = this.cityList.filter(
+          (city: { state: any }) => city.state === selectedState
+        );
+        this.myForm.get('selectedCity')?.setValue(''); // Reset the selected city
+      });
   }
 
   fetchCityList() {
@@ -46,6 +54,11 @@ export class MallsComponent implements OnInit {
     });
   }
   onSubmit(form: FormGroup) {
+    this.log.info(
+      `cityList.component.ts:ngOnInit:cityListInput::${JSON.stringify(
+        form.value
+      )}`
+    );
     console.log('Image:', this.previewImage);
     console.log('State:', form.value.selectedState);
     console.log('City:', form.value.selectedCity);
