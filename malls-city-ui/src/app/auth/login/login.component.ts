@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { LoggerService } from 'src/app/shared/services/logger.service';
+import { AuthService } from '../services/auth.service';
+import { LoggerService } from '../../shared/services/logger.service';
+import { passwordMatchValidator } from '../validators/passwordMatch.validator';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
       password: ['', Validators.required],
+      confirmPassword: ['', Validators.required, passwordMatchValidator()],
     });
 
     // get return url from route parameters or default to '/'
@@ -44,9 +46,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.log.info(
-      `login.component.ts:onSubmit::${JSON.stringify(this.getLoginForm)}`
-    );
+    console.log(this.getLoginForm);
+    console.log(this.loginForm.controls);
+    this.log.info(`login.component.ts:onSubmit::${this.loginForm.controls}`);
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {

@@ -6,5 +6,6 @@ export const APIS = {
   SHOP: '/v1/shop',
   USER: '/v1/admin',
   LOGIN: '/v1/admin/login',
+  SIGNUP: '/v1/admin',
   logs: '/v1/logs',
 };

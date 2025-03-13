@@ -11,7 +11,6 @@ import { HighlightsColorDirective } from './directives/highlight/highlights-colo
 import { RepeatitemsDirective } from './directives/repeat/repeatitems.directive';
 import { LoggerService } from './services/logger.service';
 import { SearchCityService } from './services/search-city.service';
-import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +28,6 @@ import { AuthService } from './services/auth.service';
     HttpClientModule,
   ],
   exports: [HeaderComponent],
-  providers: [LoggerService, SearchCityService, AuthService],
+  providers: [LoggerService, SearchCityService],
 })
 export class SharedModule {}

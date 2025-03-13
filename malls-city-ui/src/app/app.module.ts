@@ -15,7 +15,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { AuthGuard } from './shared/guards/auth.guard';
 
 export function tokenGetter() {
   return localStorage.getItem('currentUser');
@@ -47,7 +46,6 @@ export function tokenGetter() {
       },
     }),
   ],
-  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

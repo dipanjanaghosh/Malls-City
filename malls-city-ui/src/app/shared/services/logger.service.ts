@@ -17,7 +17,9 @@ export class LoggerService {
       message,
       timestamp: new Date().toISOString(),
     };
-    return this.http.post(this.apiUrl, logEntry).subscribe();
+    return this.http.post(this.apiUrl, logEntry).subscribe((response) => {
+      console.log(response);
+    });
   }
 
   info(message: string) {

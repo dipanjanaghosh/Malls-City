@@ -31,6 +31,7 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 // app.use((req, res, next) => {
 //     console.log("From Custom Middleware :", req.url);
 //     next();
