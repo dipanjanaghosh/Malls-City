@@ -13,6 +13,7 @@ import { passwordMatchValidator } from '../validators/passwordMatch.validator';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  isSignup = true; // Initially show signup form
   loading = false;
   submitted = false;
   returnUrl!: string;
@@ -27,16 +28,26 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loginForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required, passwordMatchValidator()],
-    });
-
+    this.createForm();
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
+  createForm(): void {
+    if (this.isSignup) {
+      this.loginForm = this.fb.group({
+        name: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        username: ['', Validators.required],
+        password: ['', Validators.required],
+        confirmPassword: ['', [Validators.required, passwordMatchValidator()]],
+      });
+    } else {
+      this.loginForm = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', Validators.required],
+      });
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -45,36 +56,75 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-    console.log(this.getLoginForm);
-    console.log(this.loginForm.controls);
-    this.log.info(`login.component.ts:onSubmit::${this.loginForm.controls}`);
-
+    this.log.info(`login.component.ts:onSubmit::Form submitted`);
     // stop here if form is invalid
     if (this.loginForm.invalid) {
+      this.log.info(`login.component.ts:onSubmit::Form is invalid`);
       return;
     }
 
-    this.loading = true;
-    this.authService
-      .login(
-        this.getLoginForm['username'].value,
-        this.getLoginForm['password'].value
-      )
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          this.router.navigate([this.returnUrl]);
-        },
-        (error) => {
-          this.error = error;
-          this.loading = false;
-        }
+    this.submitted = true;
+    console.log(this.getLoginForm);
+    console.log(this.loginForm.controls);
+
+    if (this.isSignup) {
+      this.loading = true;
+      let formObj = {
+        name: this.getLoginForm['name'].value,
+        email: this.getLoginForm['email'].value,
+        username: this.getLoginForm['username'].value,
+        password: this.getLoginForm['password'].value,
+        confirmPassword: this.getLoginForm['confirmPassword'].value,
+      };
+      this.log.info(
+        `login.component.ts:Signup Form ::${JSON.stringify(formObj)}`
       );
+      this.authService
+        .signUp(formObj)
+        .pipe(first())
+        .subscribe(
+          (data) => {
+            // this.router.navigate([this.returnUrl]);
+            console.log('login.component.ts:Signup Form::data::', data);
+            this.loading = false;
+          },
+          (error) => {
+            this.error = error;
+            this.loading = false;
+          }
+        );
+      return;
+    } else {
+      this.loading = true;
+      let formObj = {
+        email: this.getLoginForm['email'].value,
+        password: this.getLoginForm['password'].value,
+      };
+      this.log.info(
+        `login.component.ts:Signup Form ::${JSON.stringify(formObj)}`
+      );
+      this.authService
+        .login(formObj)
+        .pipe(first())
+        .subscribe(
+          (data) => {
+            this.router.navigate([this.returnUrl]);
+          },
+          (error) => {
+            this.error = error;
+            this.loading = false;
+          }
+        );
+    }
   }
 
   loginWithGoogle() {
     //write logic here
     this.log.info(`login.component.ts:loginWithGoogle clicked::`);
+  }
+
+  toggleForm(): void {
+    this.isSignup = !this.isSignup;
+    this.createForm();
   }
 }

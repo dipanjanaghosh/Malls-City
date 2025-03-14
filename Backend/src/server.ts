@@ -36,6 +36,7 @@ app.use(express.urlencoded({ extended: false }));
 //     console.log("From Custom Middleware :", req.url);
 //     next();
 // });
+
 app.use("/api/v1/mall", mallRouter);
 app.use("/api/v1/shop", ShopRouter);
 app.use("/api/v1/city", cityRouter);

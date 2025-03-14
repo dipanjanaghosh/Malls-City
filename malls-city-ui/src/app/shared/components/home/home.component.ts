@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subs = this.store.select(getCities).subscribe((data) => {
       this.cityList = data;
       this.log.info(
-        `home.component.ts::City List${JSON.stringify(this.cityList)}`
+        `home.component.ts::City List${JSON.stringify(this.cityList.length)}`
       );
     });
   }

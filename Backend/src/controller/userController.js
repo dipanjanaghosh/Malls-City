@@ -16,14 +16,14 @@ exports.addUser = async (req, res) => {
         res.status(201).json({ message: "User created successfully" });
     } catch (err) {
         if (err.code === 11000) {
-            logger.info(`addUser:error If Block :${JSON.stringify(err)}`);
+            logger.error(`addUser:error If Block :${JSON.stringify(err)}`);
             res.status(500).send({
                 status: "fail",
                 error: "Error Adding User.Duplicate Key",
                 keyName: err?.keyValue,
             });
         } else {
-            logger.info(`addUser:error else Block :${JSON.stringify(err)}`);
+            logger.error(`addUser:error else Block :${JSON.stringify(err)}`);
             res.status(500).send({
                 status: "fail",
                 error: "Error Adding User",
