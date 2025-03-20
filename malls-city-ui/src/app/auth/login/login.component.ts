@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { LoggerService } from '../../shared/services/logger.service';
 import { passwordMatchValidator } from '../validators/passwordMatch.validator';
+import { ToastrService } from 'ngx-toastr';
+import { SingUpError } from '../modal/authInterface';
 
 @Component({
   selector: 'app-login',
@@ -13,18 +15,19 @@ import { passwordMatchValidator } from '../validators/passwordMatch.validator';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  isSignup = true; // Initially show signup form
+  isSignup = false; // Initially show login form
   loading = false;
   submitted = false;
   returnUrl!: string;
-  error = '';
+  error!: SingUpError;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private log: LoggerService, // injecting LoggerService to use in this component
-    private authService: AuthService
+    private authService: AuthService,
+    private toaster: ToastrService
   ) {}
 
   ngOnInit() {
@@ -84,12 +87,21 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
           (data) => {
-            // this.router.navigate([this.returnUrl]);
+            this.router.navigate([this.returnUrl]);
             console.log('login.component.ts:Signup Form::data::', data);
+            this.toaster.info(formObj.name, 'Signup successful');
             this.loading = false;
           },
           (error) => {
             this.error = error;
+            console.log(
+              'Error login.component.ts:Signup Form::',
+              this.error.error
+            );
+            this.toaster.error(
+              this.error.error.errorMsg,
+              this.error.error.keyName.name
+            );
             this.loading = false;
           }
         );

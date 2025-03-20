@@ -44,14 +44,15 @@ app.use("/api/v1/shared", sharedRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/logs", logRouter);
 
-//www.youtube.com/watch?v=WqJ0P8JnftI
+//Uploading Files with NodeJS and Multer :: www.youtube.com/watch?v=WqJ0P8JnftI
 
-const port = 5000;
-app.listen(port, () => {
-    console.log("Website is running at http://localhost:" + port);
-    if (process.env.NODE_ENV === "production") {
-        console.log("production");
-    }
+app.listen(process.env.PORT, () => {
+    logger.info(
+        `mall@City is running at http://localhost :: ${process.env.PORT}`
+    );
+    // if (process.env.NODE_ENV === "production") {
+    //     console.log("production");
+    // }
 });
 
 app.post("/api/users/login", (req, res) => {

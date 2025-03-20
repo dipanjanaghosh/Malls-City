@@ -1,11 +1,13 @@
 // const mongoose = require("mongoose");
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
+const logger = require("../appLogger");
 
 export interface User {
     name: string;
     password: string;
     email: string;
+    username: string;
 }
 
 const userSchema = new Schema<User>(
@@ -13,13 +15,17 @@ const userSchema = new Schema<User>(
         name: {
             type: String,
             required: true,
-            unique: true,
         },
         password: {
             type: String,
             required: true,
         },
         email: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        username: {
             type: String,
             required: true,
             unique: true,
@@ -47,6 +53,7 @@ userSchema.pre("save", async function (next) {
             return next(error);
         } else {
             // Handle the case where error is not an Error object
+            logger.error(`userSchema.pre::Error hashing password: ${error}`); // Log the error
             console.error("Unexpected error type:", error);
             return next(new Error("An unexpected error occurred.")); // Create a new Error
         }

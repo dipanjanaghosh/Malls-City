@@ -10,16 +10,22 @@ exports.addUser = async (req, res) => {
     );
     try {
         const user = await userModel.create(req.body);
+        // const addedUser = await userModel.findOne({ email: req.body.email });
         logger.info(
-            `userController:: user added : *****${JSON.stringify(user)}`
+            `userController::addUser:: user : *****${JSON.stringify(user)}`
         );
-        res.status(201).json({ message: "User created successfully" });
+        let token = await createToken(user, req);
+        let resObject = { token, user: user };
+        logger.info(
+            `userController::addUser: resObject: ${JSON.stringify(resObject)}`
+        );
+        res.json(resObject);
     } catch (err) {
         if (err.code === 11000) {
             logger.error(`addUser:error If Block :${JSON.stringify(err)}`);
             res.status(500).send({
                 status: "fail",
-                error: "Error Adding User.Duplicate Key",
+                errorMsg: "Error Adding Duplicate Key",
                 keyName: err?.keyValue,
             });
         } else {
@@ -57,27 +63,10 @@ exports.loginUser = async (req, res) => {
         logger.info(
             `userController::loginUser:: user : *****${JSON.stringify(user)}`
         );
-        if (!user) {
-            return res.status(401).json({ message: "Invalid credentials" });
-        }
-        const isPasswordValid = await user.comparePassword(req.body.password);
-
-        if (!isPasswordValid) {
-            return res.status(401).json({ message: "Invalid credentials" });
-        }
-
-        // Generate JWT
-        const token = jwt.sign(
-            { userId: user._id, email: user.email }, // Payload
-            process.env.JWT_SECRET, // Secret key (store in .env)
-            { expiresIn: "1h" } // Token expiration
-        );
-
-        let resObject = { token, userId: user._id, username: user.username };
+        let token = await createToken(user, req);
+        let resObject = { token, user: user };
         logger.info(
-            `userController::loginUser:: resObject : *****${JSON.stringify(
-                resObject
-            )}`
+            `userController::loginUser: resObject: ${JSON.stringify(resObject)}`
         );
 
         res.json(resObject);
@@ -90,3 +79,29 @@ exports.loginUser = async (req, res) => {
         res.status(500).json({ message: "Login failed", error: error.message });
     }
 };
+
+async function createToken(user, req) {
+    if (!user) {
+        logger.error(
+            "userController::createToken:: User Not Present.Try SignUp first and then login"
+        );
+        return res.status(401).json({
+            message:
+                "userController::createToken::User Not Present.Try SignUp first and then login",
+        });
+    }
+    const isPasswordValid = await user.comparePassword(req.body.password);
+
+    if (!isPasswordValid) {
+        logger.error("userController::createToken:: Invalid credentials");
+        return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    // Generate JWT
+    const token = jwt.sign(
+        { userId: user._id, email: user.email }, // Payload
+        process.env.JWT_SECRET, // Secret key (store in .env)
+        { expiresIn: "1h" } // Token expiration
+    );
+    return token;
+}
