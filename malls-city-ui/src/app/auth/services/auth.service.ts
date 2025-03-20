@@ -11,6 +11,8 @@ import { AdminUser } from '../modal/authInterface';
   providedIn: 'root',
 })
 export class AuthService {
+  private tokenKey = 'authToken'; // Key to store the token
+  private userKey = 'currentUser'; // Key to store the user data
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<AdminUser>;
 
@@ -19,9 +21,7 @@ export class AuthService {
     private jwtHelper: JwtHelperService,
     private logs: LoggerService
   ) {
-    this.currentUserSubject = new BehaviorSubject<any>(
-      JSON.parse(localStorage.getItem('currentUser') ?? '{}')
-    );
+    this.currentUserSubject = new BehaviorSubject<any>(this.getUser());
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -37,7 +37,8 @@ export class AuthService {
         map((user) => {
           this.logs.info(`AuthSerive.ts::user:: ${JSON.stringify(user)}`);
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.setToken(user.token);
+          this.setUser(user);
           this.currentUserSubject.next(user);
           return user;
         })
@@ -51,7 +52,8 @@ export class AuthService {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         console.log(`user:`, user);
         this.logs.info(`AuthSerive.ts::user:: ${JSON.stringify(user)}`);
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.setToken(user.token);
+        this.setUser(user);
         this.currentUserSubject.next(user);
         return user;
       })
@@ -60,16 +62,15 @@ export class AuthService {
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+    this.removeToken();
+    this.removeUser();
     this.currentUserSubject.next(null);
   }
 
   isAuthenticated(): boolean {
-    const currentUserString = localStorage.getItem('currentUser');
+    const currentUserString = this.getUser();
     if (!currentUserString) {
-      console.log(
-        'Authentication failed: currentUser not found in localStorage'
-      );
+      console.log('Authentication failed: User not found');
       return false;
     }
     try {
@@ -90,5 +91,33 @@ export class AuthService {
       console.error('Error parsing currentUser:', error);
       return false; // Handle parsing errors
     }
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem(this.tokenKey, token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
+  removeToken(): void {
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  setUser(userData: AdminUser): void {
+    localStorage.setItem(this.userKey, JSON.stringify(userData));
+  }
+
+  getUser(): string | null {
+    return JSON.parse(localStorage.getItem(this.userKey) ?? '{}');
+  }
+
+  removeUser(): void {
+    localStorage.removeItem(this.userKey);
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
   }
 }

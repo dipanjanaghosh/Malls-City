@@ -41,9 +41,6 @@ export class AddCityComponent implements OnInit {
   }
 
   onSubmit() {
-    this.log.info(
-      `addCity.component.ts:onSubmit:${JSON.stringify(this.myForm.value)}`
-    );
     if (this.myForm.valid) {
       const formData = this.myForm.value;
       this.cityData = {
@@ -51,12 +48,17 @@ export class AddCityComponent implements OnInit {
         name: formData.cityName,
         cityCode: formData.cityCode,
       };
+      this.log.info(
+        `addCity.component.ts:onSubmit:${JSON.stringify(this.cityData)}`
+      );
       this.store.dispatch(
         checkCityName({
           cityCode: this.cityData.cityCode,
           newCityName: this.cityData,
         })
       );
+    } else {
+      this.log.error(`addCity.component.ts:onSubmit:Form is invalid::}`);
     }
   }
 }
