@@ -74,13 +74,13 @@ export class AuthService {
       return false;
     }
     try {
-      const currentUser = JSON.parse(currentUserString);
-      if (!currentUser || !currentUser.token) {
+      const token = this.getToken();
+      if (!token) {
         console.log('Authentication failed: currentUser or token is missing');
         return false;
       }
 
-      const isTokenExpired = this.jwtHelper.isTokenExpired(currentUser.token);
+      const isTokenExpired = this.jwtHelper.isTokenExpired(token);
       if (isTokenExpired) {
         console.log('Authentication failed: token expired');
         return false;
@@ -106,7 +106,7 @@ export class AuthService {
   }
 
   setUser(userData: AdminUser): void {
-    localStorage.setItem(this.userKey, JSON.stringify(userData));
+    localStorage.setItem(this.userKey, JSON.stringify(userData.user));
   }
 
   getUser(): string | null {
