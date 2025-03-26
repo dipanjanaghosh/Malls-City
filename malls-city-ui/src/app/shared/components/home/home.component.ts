@@ -27,9 +27,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   fetchCityList() {
-    // this.searchCityService.getAllCityList().subscribe((data: any) => {
-    //   this.cityList = data;
-    // });
     this.store.dispatch(getCityList());
     this.subs = this.store.select(getCities).subscribe((data) => {
       this.cityList = data;
@@ -47,6 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    if (this.subs) {
+      this.subs.unsubscribe();
+    }
   }
 }

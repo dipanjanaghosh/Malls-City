@@ -3,12 +3,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MaterialModule } from 'src/app/Material.Module';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
+  // let routerSpy = jasmine.SpyObj<Router>;
+  // let authSpy = jasmine.SpyObj<AuthService>;
 
   beforeEach(() => {
+    // routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    // authSpy = jasmine.createSpyObj('AuthService', ['logout']);
+
     TestBed.configureTestingModule({
       declarations: [HeaderComponent],
       imports: [MaterialModule],
