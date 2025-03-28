@@ -27,7 +27,7 @@ import { SearchCityService } from './services/search-city.service';
     FormsModule,
     HttpClientModule,
   ],
-  exports: [HeaderComponent],
+  exports: [HeaderComponent, FooterComponent],
   providers: [LoggerService, SearchCityService],
 })
 export class SharedModule {}
