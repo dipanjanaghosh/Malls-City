@@ -20,7 +20,6 @@ export class HeaderComponent {
   ngOnInit() {
     this.authService.currentUser.subscribe((data) => {
       this.user = data.user;
-      console.log('user from header', this.user);
       this.showOrHideUsername();
     });
   }
@@ -52,21 +51,25 @@ export class HeaderComponent {
   }
 
   logout() {
-    console.log('Logout');
+    console.log('header.component.ts: Logout');
     this.authService.logout();
     this.user = {};
     this.isShowUserName = false;
     this.router.navigate(['/']); // Redirect to home page after logout
   }
-  // openModal() {
-  //   const modal = document.getElementById('accountModal')!;
-  //   modal.style.display = 'block'; // Make the modal visible
-  //   this.showAddCity = true;
-  // }
 
-  // closeModal() {
-  //   const modal = document.getElementById('accountModal')!;
-  //   modal.style.display = 'none'; // Hide the modal
-  //   this.showAddCity = false;
-  // }
+  homeButtonClick() {
+    console.log('Home button clicked!');
+    this.router.navigate(['/']);
+  }
+  adminButtonClick() {
+    console.log('Admin button clicked!');
+    this.router.navigate(['/admin']);
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+  }
 }

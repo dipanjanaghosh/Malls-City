@@ -22,7 +22,8 @@
           mat-icon-button
           color="white"
           aria-label="homeIconButton"
-          routerLink="/"
+          data-test="home-button"
+          (click)="homeButtonClick()"
           class="mx-1"
         >
           <mat-icon>home</mat-icon>
@@ -31,7 +32,9 @@
           mat-icon-button
           color="white"
           class="example-icon account_circle-icon mx-1"
+          data-test="admin-button"
           routerLink="/admin"
+          (click)="adminButtonClick()"
           aria-label="AdminIconButton"
           [title]="
             user?.username ? 'Click here to go to Admin' : 'Click here to Login'
@@ -44,6 +47,7 @@
           (click)="logout()"
           appHighlightsColor
           mat-icon-button
+          data-test="header-logout-button"
           color="white"
           class="example-icon logout-icon mx-1"
           title="Click here to Logout"
