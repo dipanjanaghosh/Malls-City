@@ -16,6 +16,13 @@ router
         cityController.addCity
     );
 
+router.route("/indianCities").get(cityController.getIndianCity);
+router
+    .route("/indianCities/state/:state")
+    .get(cityController.getIndianCitiesByState);
+router
+    .route("/indianCities/district/:district")
+    .get(cityController.getIndianCitiesByDistrict);
 router.route("/:cityCode").get(cityController.getOneCity);
 
 module.exports = router;

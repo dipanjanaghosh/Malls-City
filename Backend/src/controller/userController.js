@@ -63,6 +63,14 @@ exports.loginUser = async (req, res) => {
         logger.info(
             `userController::loginUser:: user : *****${JSON.stringify(user)}`
         );
+        if (!user) {
+            logger.error(
+                "userController::loginUser:: User not found. Please sign up first."
+            );
+            return res.status(404).json({
+                message: "User not found. Please sign up first.",
+            });
+        }
         let token = await createToken(user, req);
         let resObject = { token, user: user };
         logger.info(
