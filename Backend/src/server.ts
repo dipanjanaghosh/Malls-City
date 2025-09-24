@@ -1,27 +1,28 @@
 import dotenv from "dotenv";
 dotenv.config();
+
 import express from "express";
 import cors from "cors";
-import { MYDATA } from "./data";
+import morgan from "morgan";
+import path from "path";
+import { dbConnect } from "./configs/database.config";
+import logger from "./appLogger";
+
 import sharedRouter from "./routers/shared.router";
 import adminRouter from "./routers/admin.router";
-import { dbConnect } from "./configs/database.config";
-import morgan from "morgan"; //HTTP request logger middleware for node.js
-const logger = require("./appLogger");
-const cityRouter = require("./routers/cityRouter");
-const mallRouter = require("./routers/mallRouter");
-const ShopRouter = require("./routers/shopRouter");
-const logRouter = require("./routers/logRouter");
+import cityRouter from "./routers/cityRouter";
+import mallRouter from "./routers/mallRouter";
+import shopRouter from "./routers/shopRouter";
+import logRouter from "./routers/logRouter";
 
 // Connect to MongoDB database
 dbConnect();
 
 const app = express();
-
 app.use(
     cors({
         credentials: true,
-        origin: ["http://localhost:4200"],
+        origin: [process.env.FRONTEND_URL!],
     })
 );
 app.use(
@@ -32,33 +33,23 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use((req, res, next) => {
-//     console.log("From Custom Middleware :", req.url);
-//     next();
-// });
+// Serve static files from the Angular build output directory
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use("/api/v1/mall", mallRouter);
-app.use("/api/v1/shop", ShopRouter);
+app.use("/api/v1/shop", shopRouter);
 app.use("/api/v1/city", cityRouter);
 app.use("/api/v1/shared", sharedRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/logs", logRouter);
 
-//Uploading Files with NodeJS and Multer :: www.youtube.com/watch?v=WqJ0P8JnftI
-
-app.listen(process.env.PORT, () => {
-    logger.info(
-        `mall@City is running at http://localhost :: ${process.env.PORT}`
-    );
-    // if (process.env.NODE_ENV === "production") {
-    //     console.log("production");
-    // }
+// Wildcard route to serve the Angular app for any non-API routes.
+// This must be placed after all other API routes.
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
 
-app.post("/api/users/login", (req, res) => {
-    console.log("req", req.body);
-});
-
-app.delete("/api/test", (req, res) => {
-    console.log("delete req", req.body);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    logger.info(`Server is running on port ${PORT}`);
 });

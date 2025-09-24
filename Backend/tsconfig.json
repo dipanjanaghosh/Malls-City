@@ -1,12 +1,15 @@
 {
     "compilerOptions": {
-      "module": "CommonJS",
-      "moduleResolution": "node",
-      "strict": true,
-      "outDir": "./built",
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "esModuleInterop": true
+        "target": "es2020",
+        "module": "commonjs",
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "allowJs": true, // <--- This is the fix
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true
     },
-    "include": ["src/**/*"], // this tells compiler to select all ts file in src folder to transpilled into js files.
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
 }

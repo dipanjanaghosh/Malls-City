@@ -1,5 +1,6 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { environment } from '../environments/environment';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,8 +43,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ['your-api-domain.com'],
-        disallowedRoutes: ['http://your-api-domain.com/auth/login'],
+        allowedDomains: [environment.apiDomain],
+        disallowedRoutes: [`//${environment.apiDomain}/auth/login`],
       },
     }),
   ],
