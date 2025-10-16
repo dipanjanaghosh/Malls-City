@@ -1,6 +1,6 @@
 import { AppStateModel } from './app.model';
 
-export const GlobalState: AppStateModel = {
+export const initialState: AppStateModel = {
   cities: [],
   malls: [],
   shops: [],

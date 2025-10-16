@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
+import { appMetaReducers } from './shared/store/meta-reducers';
 
 export function tokenGetter() {
   return localStorage.getItem('currentUser');
@@ -37,7 +38,10 @@ export function tokenGetter() {
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
-    StoreModule.forRoot({ globalState: appReducer }),
+    StoreModule.forRoot(
+      { globalState: appReducer },
+      { metaReducers: appMetaReducers }
+    ),
     EffectsModule.forRoot([AppEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     JwtModule.forRoot({

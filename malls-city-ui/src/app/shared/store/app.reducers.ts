@@ -4,11 +4,12 @@ import {
   checkCityNameSuccess,
   getCityListSuccess,
 } from './app.action';
-import { GlobalState } from './app.state';
+import { initialState } from './app.state';
+import { AppStateModel } from './app.model';
 
 export const appReducer = createReducer(
-  GlobalState,
-  on(getCityListSuccess, (state, action) => {
+  initialState,
+  on(getCityListSuccess, (state, action): AppStateModel => {
     return {
       ...state,
       cities: action.cities,
