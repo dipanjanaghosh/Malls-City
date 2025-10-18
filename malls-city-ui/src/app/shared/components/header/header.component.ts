@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { Router, NavigationEnd, Event } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -18,10 +18,8 @@ export class HeaderComponent {
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    this.authService.currentUser.subscribe((data) => {
-      this.user = data.user;
-      this.showOrHideUsername();
-    });
+    this.user = this.authService.currentUserValue;
+    this.showOrHideUsername();
   }
 
   showOrHideUsername() {

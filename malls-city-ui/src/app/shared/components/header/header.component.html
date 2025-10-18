@@ -14,8 +14,8 @@
         <span class="headerTitle" appHighlightsColor>{{ headerTitle }}</span>
       </div>
       <div class="col-auto d-flex align-items-center">
-        <span *ngIf="isShowUserName" class="mx-2 d-none d-md-inline"
-          >Hello: {{ user.username }}</span
+        <span *ngIf="isShowUserName && user" class="mx-2 d-none d-md-inline"
+          >Hello: {{ user?.username }}</span
         >
         <button
           appHighlightsColor
