@@ -12,7 +12,9 @@
         "start:dev": "cd src && nodemon server.ts",
         "start:prod": " cd src && NODE_ENV=production nodemon server.ts",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
+        "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+        "sync:indexes": "ts-node assets/scripts/sync-all-indexes-safe.ts",
+        "restore:indexes": "node assets/scripts/restore-indexes.ts"
     },
     "keywords": [],
     "author": "",

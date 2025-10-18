@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-dotenv.config();
+// dotenv.config();
 
 import express from "express";
 import cors from "cors";
@@ -15,6 +15,8 @@ import mallRouter from "./routers/mallRouter";
 import shopRouter from "./routers/shopRouter";
 import logRouter from "./routers/logRouter";
 
+// Load environment variables from .env file inside dist folder after build as it was not working with just dotenv.config()
+dotenv.config({ path: path.resolve(__dirname, "../src/.env") });
 // Connect to MongoDB database
 dbConnect();
 

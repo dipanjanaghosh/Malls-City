@@ -5,6 +5,7 @@
         "rootDir": "./src",
         "outDir": "./dist",
         "allowJs": true, // <--- This is the fix
+        "moduleResolution": "node",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,

@@ -1,6 +1,6 @@
 const { CityModel } = require("../models/city.model");
 const logger = require("../appLogger");
-const citiesData = require("../../assests/cities.json"); // Path to downloaded JSON file
+const citiesData = require("../../assets/cities.json"); // Path to downloaded JSON file
 
 exports.getOneCity = async (req, res) => {
     let response = {
