@@ -5,9 +5,3 @@ export interface checkCityResponse {
   state: string;
   value: boolean;
 }
-
-export interface CityList {
-  cityCode: number;
-  name: string;
-  state: string;
-}

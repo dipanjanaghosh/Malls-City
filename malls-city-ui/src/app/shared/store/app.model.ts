@@ -8,7 +8,7 @@ export interface AppStateModel {
 }
 
 export interface CityList {
-  id: string;
+  id?: string;
   name: string;
   cityCode: number;
   state: string;
