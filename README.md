@@ -1,36 +1,34 @@
 ## Malls-City
 
-    It is a one stop portal to unlock the vibrant and diverse world of shopping mall across the globe.
-    Here user will select the city and then will see all available malls in that city.
-    once they select malls of thier choice then they will see all available shops in that mall.
-    They backend of this project is in Node.js and mongoDb.
-    The frontend of this project is angular.
+It is a one-stop portal to unlock the vibrant and diverse world of shopping malls across the globe.
+Users can select a city to see all available malls, then explore shops within those malls.
 
-## Features :
+---
 
-    Backend :
-            1. Admin related APIS
-            2. User related APIS
+## 🏗️ Project Architecture & Design
 
-    Frontend :
-            1. Admin related Features
-                a. Admin Home Page
-                b. View City List
-                c. Add-City
-                d. Add Malls
+For detailed technical information, please refer to the following documents:
+- **[ARCHITECTURE.md](ARCHITECTURE.md)**: Overview of the technology stack, project structure, and data flow.
+- **[DESIGN-STYLE.md](DESIGN-STYLE.md)**: UI/UX design principles, color palettes, and frontend/backend coding standards.
+- **[RULES.md](RULES.md)**: Mandatory architectural and coding rules for the development of this project.
 
-            2. Auth related Features
-                a. Login Page
-                b. Sign Up Page
+---
 
-            3. Core Features
-                a. Mall List
-                b. Shop List
+## 🚀 Key Features
 
-            4. Shared Features
-                a. Home Page
-                b. Header Page
-                b. Footer Page
+### **Backend**
+- **Admin APIs**: Secure endpoints for managing cities, malls, and shops.
+- **User APIs**: Public and authorized endpoints for data retrieval and user actions.
+- **Audit Logging**: Integrated Winston/Morgan logging for system events.
+
+### **Frontend**
+- **Admin Panel**: Feature-rich dashboard for managing platform data.
+- **Authentication**: Secure login/signup with JWT and route guards.
+- **Modern UI**: Redesigned pages with hero sections, grid layouts, and glassmorphism components.
+- **State Management**: Robust state handling using NgRx (Actions, Effects, Reducers, Selectors).
+- **Reusable Components**: Centralized component library (e.g., `CardComponent`) for a consistent look and feel.
+
+---
 
 ## 📜 Available NPM Scripts
 

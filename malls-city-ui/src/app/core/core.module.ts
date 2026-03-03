@@ -4,14 +4,11 @@ import { MatCardModule } from '@angular/material/card';
 import { CoreRoutingModule } from './core-routing.module';
 import { MallListComponent } from './components/mall-list/mall-list.component';
 import { ShopListComponent } from './components/shop-list/shop-list.component';
-
+import { CardComponent } from '../shared/components/card/card.component';
+import { MaterialModule } from '../Material.Module';
 
 @NgModule({
-  declarations: [MallListComponent,ShopListComponent],
-  imports: [
-    CommonModule,
-    CoreRoutingModule,
-    MatCardModule
-  ]
+  declarations: [MallListComponent, ShopListComponent],
+  imports: [CommonModule, CoreRoutingModule, MaterialModule, CardComponent],
 })
-export class CoreModule { }
+export class CoreModule {}

@@ -1,0 +1,17 @@
+<mat-card class="app-reusable-card">
+  <mat-card-header *ngIf="title">
+    <mat-card-title>{{ title }}</mat-card-title>
+  </mat-card-header>
+
+  <div class="image-container" *ngIf="imageUrl">
+    <img mat-card-image [src]="imageUrl" alt="Photo of {{ title }}" />
+  </div>
+
+  <mat-card-content *ngIf="content">
+    <p>{{ content }}</p>
+  </mat-card-content>
+
+  <mat-card-actions *ngIf="actions">
+    <ng-content select="[actions]"></ng-content>
+  </mat-card-actions>
+</mat-card>
