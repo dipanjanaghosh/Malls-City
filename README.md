@@ -34,7 +34,7 @@
 
 ## 📜 Available NPM Scripts
 
-        At First  use cd Backend and then run any of the scripts
+        At First use cd Backend and then run any of the scripts
 
 ## 🧑‍💻 Run the Development Server
 
