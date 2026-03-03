@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { paramData } from '../../models/searchTerm.model';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GetMallListService } from '../../service/getmall-list.service';
 import { mallsItem } from '../../models/malls.model';
 import { LoggerService } from 'src/app/shared/services/logger.service';
@@ -11,6 +10,11 @@ import { LoggerService } from 'src/app/shared/services/logger.service';
   styleUrls: ['./mall-list.component.scss'],
 })
 export class MallListComponent {
+  private acRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private getMallListService = inject(GetMallListService);
+  private log = inject(LoggerService);
+
   selectedCity = '';
   mallList: mallsItem[] = [];
   mallsDetails!: mallsItem;
@@ -21,28 +25,14 @@ export class MallListComponent {
   mallAddress = '';
   filteredMallList: any[] = [];
 
-  constructor(
-    private acRoute: ActivatedRoute,
-    private getMallListService: GetMallListService,
-    private log: LoggerService
-  ) {}
-
   ngOnInit() {
     this.getMallList();
-    // this.acRoute.queryParams.subscribe((data:paramData)=>{
-    //   console.log(data);
-    //   this.selectedCity = data['city'] ;
-    // })
-
-    // this.selectedCity = this.acRoute.snapshot.queryParams["city"];
-    // console.log("selecetd :",this.selectedCity);
 
     this.acRoute.queryParams.subscribe((data) => {
       this.selectedCity = data['city'];
       this.log.info(
         `mall-list.component.ts::City List${JSON.stringify(this.selectedCity)}`
       );
-      console.log();
     });
   }
 
@@ -58,11 +48,15 @@ export class MallListComponent {
     this.log.info(
       `mall-list.component.ts:mallNames:${JSON.stringify(this.mallNames)}`
     );
+  }
 
-    // for (let i = 0; i < this.mallList.length; i++) {
-    //   this.mallsDetails = this.mallList[i];
-    //   this.mallNames.push(this.mallsDetails.name);
-    // }
-    // console.log("mallsDetails :",this.mallsDetails);
+  navigateToShops(mall: mallsItem) {
+    this.log.info(`Navigating to shops for mall: ${mall.name} (${mall.id})`);
+    this.router.navigate(['/core/shopslist'], {
+      queryParams: {
+        mallId: mall.id,
+        mallName: mall.name
+      }
+    });
   }
 }

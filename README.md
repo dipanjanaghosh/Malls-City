@@ -25,6 +25,7 @@ For detailed technical information, please refer to the following documents:
 - **Admin Panel**: Feature-rich dashboard for managing platform data.
 - **Authentication**: Secure login/signup with JWT and route guards.
 - **Modern UI**: Redesigned pages with hero sections, grid layouts, and glassmorphism components.
+- **Filtering System**: Advanced floor-based and category-based filtering for shops with an interactive dropdown menu.
 - **State Management**: Robust state handling using NgRx (Actions, Effects, Reducers, Selectors).
 - **Reusable Components**: Centralized component library (e.g., `CardComponent`) for a consistent look and feel.
 

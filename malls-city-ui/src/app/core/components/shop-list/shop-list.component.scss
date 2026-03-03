@@ -1,0 +1,171 @@
+.shop-list-page {
+  background-color: #d8b4fe; // Light purple background for the whole page
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: "Roboto", sans-serif;
+
+  .filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+
+    .floor-tabs {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+
+      .tab-btn {
+        background-color: #f3e8ff;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 25px;
+        color: #333;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          background-color: #e9d5ff;
+        }
+
+        &.active {
+          background-color: #a855f7;
+          color: white;
+          box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+        }
+
+        &.more {
+          background-color: #f3e8ff;
+        }
+      }
+    }
+
+    .filter-action {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #7c3aed;
+      font-weight: 800;
+      cursor: pointer;
+
+      mat-icon {
+        font-size: 24px;
+      }
+    }
+  }
+
+  // Global style for mat-menu items if needed, but better to use component scss
+  // Since mat-menu is often outside the component's view encapsulation,
+  // we might need ::ng-deep or put it in styles.scss
+  ::ng-deep .mat-mdc-menu-content {
+    background-color: #f3e8ff !important;
+    .mat-mdc-menu-item {
+      color: #7c3aed !important;
+      &.selected {
+        background-color: #a855f7 !important;
+        color: white !important;
+      }
+    }
+  }
+
+  .shop-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+
+    .shop-card {
+      display: flex;
+      background-color: #f3e8ff;
+      border-radius: 4px; // Sharp corners with slight rounding as per image
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      height: 180px;
+
+      .shop-image {
+        width: 200px;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+
+        img {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .shop-details {
+        flex: 1;
+        background-color: #a78bfa80; // Semi-transparent purple for details area
+        display: flex;
+        justify-content: space-between;
+        padding: 1.5rem;
+
+        .info-left {
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+          color: white;
+
+          .shop-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem 0;
+          }
+
+          p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+          }
+        }
+
+        .info-right {
+          display: flex;
+          align-items: center;
+
+          .category {
+            color: #ef4444; // Red text for category as per image
+            font-weight: 700;
+            font-size: 1.3rem;
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .shop-list-page {
+    padding: 1rem;
+
+    .filter-container {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .shop-list .shop-card {
+      flex-direction: column;
+      height: auto;
+
+      .shop-image {
+        width: 100%;
+        height: 200px;
+      }
+
+      .shop-details {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  }
+}

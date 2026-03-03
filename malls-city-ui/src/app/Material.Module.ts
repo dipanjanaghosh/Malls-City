@@ -33,6 +33,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatExpansionModule,
     MatTableModule,
     MatPaginatorModule,
+    MatMenuModule,
   ],
 })
 export class MaterialModule {}

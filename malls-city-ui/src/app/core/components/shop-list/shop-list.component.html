@@ -1,1 +1,51 @@
-<p style="margin-top: 50px;">This is shop list page</p>
+<div class="shop-list-page">
+  <!-- Floor Filter Tabs -->
+  <div class="filter-container">
+    <div class="floor-tabs">
+      <button
+        *ngFor="let floor of floors"
+        class="tab-btn"
+        [class.active]="selectedFloor === floor"
+        (click)="setFloor(floor)"
+      >
+        {{ floor | uppercase }}
+      </button>
+      <button class="tab-btn more">more.....</button>
+    </div>
+    <div class="filter-action" [matMenuTriggerFor]="filterMenu">
+      <mat-icon>tune</mat-icon>
+      <span>FILTER ({{ selectedCategory }})</span>
+    </div>
+
+    <mat-menu #filterMenu="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let cat of categories"
+        (click)="setCategory(cat)"
+        [class.selected]="selectedCategory === cat"
+      >
+        {{ cat }}
+      </button>
+    </mat-menu>
+  </div>
+
+  <!-- Shop List -->
+  <div class="shop-list">
+    <div *ngFor="let shop of filteredShopList" class="shop-card">
+      <div class="shop-image">
+        <img [src]="shop.img" [alt]="shop.name" />
+      </div>
+      <div class="shop-details">
+        <div class="info-left">
+          <h3 class="shop-title">{{ shop.name }}</h3>
+          <p class="address">{{ shop.address }}</p>
+          <p class="floor">{{ shop.floor }}</p>
+          <p class="contact">{{ shop.contactNumber }}</p>
+        </div>
+        <div class="info-right">
+          <span class="category">{{ shop.category }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -20,7 +20,12 @@
         [content]="item.description"
       >
         <div actions class="card-actions">
-          <button mat-stroked-button color="primary" class="btn-details">
+          <button
+            mat-stroked-button
+            color="primary"
+            class="btn-details"
+            (click)="navigateToShops(item)"
+          >
             View Details
           </button>
           <button mat-icon-button color="warn" class="btn-like">
