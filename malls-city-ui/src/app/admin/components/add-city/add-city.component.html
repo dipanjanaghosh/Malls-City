@@ -11,7 +11,7 @@
   <!-- Right Side: Add City Form Section -->
   <div class="city-form-section">
     <div class="form-header">
-      <h3>{{ isEditMode ? "Update City" : "Add New City" }}</h3>
+      <h3>{{ isEditMode ? "Edit City" : "Add New City" }}</h3>
       <button *ngIf="isEditMode" mat-button color="warn" (click)="resetForm()">
         Cancel Edit
       </button>
@@ -48,7 +48,7 @@
       </div>
 
       <button mat-raised-button type="submit" [disabled]="myForm.invalid">
-        {{ isEditMode ? "Update City" : "Add City" }}
+        {{ isEditMode ? "Edit City" : "Add City" }}
       </button>
     </form>
   </div>

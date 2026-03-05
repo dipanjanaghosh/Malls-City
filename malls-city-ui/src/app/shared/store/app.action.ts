@@ -9,26 +9,38 @@ export const CHECK_CITY_NAME_SUCCESS =
   '[Add City Component] Check City Name Success';
 export const ADD_CITY = '[Add City Component] Add City Name';
 export const ADD_CITY_SUCCESS = '[Add City Component] Add City Name Success';
+export const UPDATE_CITY = '[Add City Component] Update City';
+export const UPDATE_CITY_SUCCESS = '[Add City Component] Update City Success';
 
 export const getCityList = createAction(GET_CITY_LIST);
 export const getCityListSuccess = createAction(
   GET_CITY_LIST_SUCCESS,
-  props<{ cities: CityList[] }>()
+  props<{ cities: CityList[] }>(),
 );
 
 export const checkCityName = createAction(
   CHECK_CITY_NAME,
-  props<{ cityCode: number; newCityName: newCityNameModel }>()
+  props<{ cityCode: number; newCityName: newCityNameModel }>(),
 );
 
 export const checkCityNameSuccess = createAction(
   CHECK_CITY_NAME_SUCCESS,
-  props<{ checkCityResponse: checkCityResponse }>()
+  props<{ checkCityResponse: checkCityResponse }>(),
 );
 
 export const addCityName = createAction(
   ADD_CITY,
-  props<{ cityObj: newCityNameModel }>()
+  props<{ cityObj: newCityNameModel }>(),
 );
 
 export const addCityNameSuccess = createAction(ADD_CITY_SUCCESS);
+
+export const updateCity = createAction(
+  UPDATE_CITY,
+  props<{ id: string; cityObj: newCityNameModel }>(),
+);
+
+export const updateCitySuccess = createAction(
+  UPDATE_CITY_SUCCESS,
+  props<{ city: CityList }>(),
+);

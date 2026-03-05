@@ -24,4 +24,11 @@ export class SearchCityService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post(`${API_BASEURL}${APIS.CITY}`, cityData, { headers });
   }
+
+  updateCity(id: string, cityData: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.put(`${API_BASEURL}${APIS.CITY}/${id}`, cityData, {
+      headers,
+    });
+  }
 }

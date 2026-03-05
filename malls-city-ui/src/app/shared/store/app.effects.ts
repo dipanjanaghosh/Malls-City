@@ -8,6 +8,8 @@ import {
   checkCityNameSuccess,
   getCityList,
   getCityListSuccess,
+  updateCity,
+  updateCitySuccess,
 } from './app.action';
 import { catchError, exhaustMap, map, of, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -19,7 +21,7 @@ export class AppEffects {
     private searchCityService: SearchCityService,
     private action$: Actions,
     private store: Store,
-    private toster: ToastrService
+    private toster: ToastrService,
   ) {}
 
   getCityList$ = createEffect(() =>
@@ -30,10 +32,10 @@ export class AppEffects {
           map((data) => {
             console.log(data);
             return getCityListSuccess({ cities: data });
-          })
+          }),
         );
-      })
-    )
+      }),
+    ),
   );
 
   checkCityCode$ = createEffect(() =>
@@ -49,10 +51,10 @@ export class AppEffects {
               this.toster.error('City exists', 'Please try unique CityCode!');
             }
             return checkCityNameSuccess({ checkCityResponse: data });
-          })
+          }),
         );
-      })
-    )
+      }),
+    ),
   );
 
   addCityName$ = createEffect(() =>
@@ -65,9 +67,26 @@ export class AppEffects {
             this.toster.success('City added successfully', 'Success!');
             this.store.dispatch(getCityList());
             return addCityNameSuccess();
-          })
+          }),
         );
-      })
-    )
+      }),
+    ),
+  );
+
+  updateCity$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(updateCity),
+      exhaustMap((action) => {
+        return this.searchCityService
+          .updateCity(action.id, action.cityObj)
+          .pipe(
+            map((data) => {
+              this.toster.success('City updated successfully', 'Success!');
+              this.store.dispatch(getCityList());
+              return updateCitySuccess({ city: data.data });
+            }),
+          );
+      }),
+    ),
   );
 }

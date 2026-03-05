@@ -3,7 +3,11 @@ import { STATES } from '../../constant/stateList.constant';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { getCities } from 'src/app/shared/store/app.selector';
-import { checkCityName, getCityList } from 'src/app/shared/store/app.action';
+import {
+  checkCityName,
+  getCityList,
+  updateCity,
+} from 'src/app/shared/store/app.action';
 import { CityList, newCityNameModel } from 'src/app/shared/store/app.model';
 import { LoggerService } from 'src/app/shared/services/logger.service';
 
@@ -21,6 +25,7 @@ export class AddCityComponent implements OnInit {
   cityList: any;
   cityData!: newCityNameModel;
   isEditMode = false;
+  selectedCityId: string | null = null;
 
   ngOnInit() {
     this.fetchFormData();
@@ -47,7 +52,10 @@ export class AddCityComponent implements OnInit {
 
   onEditCity(city: CityList) {
     this.isEditMode = true;
-    this.log.info(`addCity.component.ts: Patching form for city: ${city.name}`);
+    this.selectedCityId = city.id || null;
+    this.log.info(
+      `addCity.component.ts: Patching form for city: ${JSON.stringify(city)}`,
+    );
     this.myForm.patchValue({
       selectedState: city.state,
       cityName: city.name,
@@ -57,6 +65,7 @@ export class AddCityComponent implements OnInit {
 
   resetForm() {
     this.isEditMode = false;
+    this.selectedCityId = null;
     this.myForm.reset({
       selectedState: '',
       cityName: '',
@@ -66,21 +75,39 @@ export class AddCityComponent implements OnInit {
 
   onSubmit() {
     if (this.myForm.valid) {
+      console.log(
+        'addCity.component.ts:onSubmit:Form is valid::',
+        this.myForm.value,
+      );
       const formData = this.myForm.value;
       this.cityData = {
         state: formData.selectedState,
         name: formData.cityName,
         cityCode: formData.cityCode,
       };
-      this.log.info(
-        `addCity.component.ts:onSubmit:${JSON.stringify(this.cityData)}`,
-      );
-      this.store.dispatch(
-        checkCityName({
-          cityCode: this.cityData.cityCode,
-          newCityName: this.cityData,
-        }),
-      );
+
+      if (this.isEditMode && this.selectedCityId) {
+        this.log.info(
+          `addCity.component.ts:Updating city:${JSON.stringify(this.cityData)}`,
+        );
+        this.store.dispatch(
+          updateCity({
+            id: this.selectedCityId,
+            cityObj: this.cityData,
+          }),
+        );
+        this.resetForm();
+      } else {
+        this.log.info(
+          `addCity.component.ts:onSubmit:${JSON.stringify(this.cityData)}`,
+        );
+        this.store.dispatch(
+          checkCityName({
+            cityCode: this.cityData.cityCode,
+            newCityName: this.cityData,
+          }),
+        );
+      }
     } else {
       this.log.error(`addCity.component.ts:onSubmit:Form is invalid::}`);
     }

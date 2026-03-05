@@ -13,7 +13,7 @@ router
             checkCityBodyMiddleWare.checkCityBodyMiddleWare,
             verifyToken.verifyToken,
         ],
-        cityController.addCity
+        cityController.addCity,
     );
 
 router.route("/indianCities").get(cityController.getIndianCity);
@@ -23,6 +23,9 @@ router
 router
     .route("/indianCities/district/:district")
     .get(cityController.getIndianCitiesByDistrict);
-router.route("/:cityCode").get(cityController.getOneCity);
+router
+    .route("/:cityId")
+    .get(cityController.getOneCity)
+    .put(verifyToken.verifyToken, cityController.updateCity);
 
 module.exports = router;

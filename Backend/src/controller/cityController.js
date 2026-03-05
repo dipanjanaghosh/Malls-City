@@ -3,30 +3,44 @@ const logger = require("../appLogger");
 const citiesData = require("../../assets/cities.json"); // Path to downloaded JSON file
 
 exports.getOneCity = async (req, res) => {
-    let response = {
-        value: false,
-        msg: "cityCode is new",
-        name: "",
-        state: "",
-        cityCode: 0,
-    };
-    const cityId = req.params.cityCode;
-    const city = await CityModel.find({ cityCode: cityId });
-    if (city.length) {
-        response = {
-            value: true,
-            msg: "cityCode Already Present",
-            name: city[0].name,
-            state: city[0].state,
-            cityCode: city[0].cityCode,
+    try {
+        let response = {
+            value: false,
+            msg: "cityId is new",
+            name: "",
+            state: "",
+            cityCode: 0,
         };
-        res.send(response);
-    } else {
-        res.send(response);
+        const { cityId } = req.params;
+
+        // Try to find by cityCode (number) or by _id
+        let city;
+        if (!isNaN(cityId)) {
+            city = await CityModel.findOne({ cityCode: Number(cityId) });
+        } else if (cityId.match(/^[0-9a-fA-F]{24}$/)) {
+            city = await CityModel.findById(cityId);
+        }
+
+        if (city) {
+            response = {
+                value: true,
+                msg: "City Already Present",
+                name: city.name,
+                state: city.state,
+                cityCode: city.cityCode,
+                id: city._id,
+            };
+            res.send(response);
+        } else {
+            res.send(response);
+        }
+        logger.info(
+            `cityController::getOneCity::response: ${JSON.stringify(response)}`,
+        );
+    } catch (error) {
+        logger.error(`cityController::getOneCity::error: ${error.message}`);
+        res.status(500).send({ error: "Internal Server Error" });
     }
-    logger.info(
-        `cityController:://getOneCity::response:: ${JSON.stringify(response)}`
-    );
 };
 
 exports.addCity = async (req, res) => {
@@ -37,8 +51,8 @@ exports.addCity = async (req, res) => {
     const savedCity = await CityModel.create(req.body);
     logger.info(
         `cityController:://addcity::response:: cities.length : ${JSON.stringify(
-            savedCity
-        )}`
+            savedCity,
+        )}`,
     );
     // const newUser = new User(req.body); // Create a new User object from request body
     // const savedUser = await newUser.save(); // Save the user to MongoDB
@@ -49,7 +63,7 @@ exports.addCity = async (req, res) => {
 exports.getAllCity = async (req, res) => {
     const cities = await CityModel.find();
     logger.info(
-        `cityController::/getallcity::response: cities.length : ${cities.length}`
+        `cityController::/getallcity::response: cities.length : ${cities.length}`,
     );
     res.send(cities);
 
@@ -80,7 +94,7 @@ exports.getAllCity = async (req, res) => {
 exports.getIndianCity = async (req, res) => {
     console.log("Fetching Indian cities from JSON data", citiesData.cities);
     logger.info(
-        `cityController::/getindiancity::response: citiesData.length : ${citiesData.cities.length}`
+        `cityController::/getindiancity::response: citiesData.length : ${citiesData.cities.length}`,
     );
     res.send(citiesData);
 };
@@ -88,19 +102,19 @@ exports.getIndianCity = async (req, res) => {
 exports.getIndianCitiesByState = async (req, res) => {
     try {
         logger.info(
-            `cityController::/getindiancitiesbystate::request: state : ${req.params.state}`
+            `cityController::/getindiancitiesbystate::request: state : ${req.params.state}`,
         );
         const state = req.params.state;
         const filteredCities = citiesData.cities.filter(
-            (city) => city.State.toLowerCase() === state.toLowerCase()
+            (city) => city.State.toLowerCase() === state.toLowerCase(),
         );
         logger.info(
-            `cityController::/getindiancitiesbystate::response: filteredCities.length : ${filteredCities.length}`
+            `cityController::/getindiancitiesbystate::response: filteredCities.length : ${filteredCities.length}`,
         );
         res.send(filteredCities);
     } catch (error) {
         logger.error(
-            `cityController::/getindiancitiesbystate::error: ${error.message}`
+            `cityController::/getindiancitiesbystate::error: ${error.message}`,
         );
         return res.status(500).send({ error: "Internal Server Error" });
     }
@@ -109,20 +123,52 @@ exports.getIndianCitiesByState = async (req, res) => {
 exports.getIndianCitiesByDistrict = async (req, res) => {
     try {
         logger.info(
-            `cityController::/getindiancitiesbydistrict::request: district : ${req.params.district}`
+            `cityController::/getindiancitiesbydistrict::request: district : ${req.params.district}`,
         );
         const district = req.params.district;
         const filteredCities = citiesData.cities.filter(
-            (city) => city.District.toLowerCase() === district.toLowerCase()
+            (city) => city.District.toLowerCase() === district.toLowerCase(),
         );
         logger.info(
-            `cityController::/getindiancitiesbydistrict::response: filteredCities.length : ${filteredCities.length}`
+            `cityController::/getindiancitiesbydistrict::response: filteredCities.length : ${filteredCities.length}`,
         );
         res.send(filteredCities);
     } catch (error) {
         logger.error(
-            `cityController::/getindiancitiesbydistrict::error: ${error.message}`
+            `cityController::/getindiancitiesbydistrict::error: ${error.message}`,
         );
         return res.status(500).send({ error: "Internal Server Error" });
+    }
+};
+
+exports.updateCity = async (req, res) => {
+    try {
+        const { cityId } = req.params;
+        const updateData = req.body;
+
+        logger.info(
+            `cityController::updateCity::request: cityId: ${cityId}, data: ${JSON.stringify(updateData)}`,
+        );
+
+        const updatedCity = await CityModel.findByIdAndUpdate(
+            cityId,
+            updateData,
+            { new: true },
+        );
+
+        if (!updatedCity) {
+            logger.warn(
+                `cityController::updateCity::city not found: cityId: ${cityId}`,
+            );
+            return res.status(404).send({ msg: "City not found" });
+        }
+
+        logger.info(
+            `cityController::updateCity::success: ${JSON.stringify(updatedCity)}`,
+        );
+        res.send({ msg: "City Updated", data: updatedCity });
+    } catch (error) {
+        logger.error(`cityController::updateCity::error: ${error.message}`);
+        res.status(500).send({ error: "Internal Server Error" });
     }
 };

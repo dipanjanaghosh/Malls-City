@@ -3,6 +3,7 @@ import {
   addCityNameSuccess,
   checkCityNameSuccess,
   getCityListSuccess,
+  updateCitySuccess,
 } from './app.action';
 import { initialState } from './app.state';
 import { AppStateModel } from './app.model';
@@ -32,7 +33,15 @@ export const appReducer = createReducer(
         value: false,
       },
     };
-  })
+  }),
+  on(updateCitySuccess, (state, action) => {
+    return {
+      ...state,
+      cities: state.cities.map((city) =>
+        city.id === action.city.id ? action.city : city,
+      ),
+    };
+  }),
 );
 
 export function AppReducer(state: any, action: any) {
